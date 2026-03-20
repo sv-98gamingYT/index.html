@@ -1,23 +1,121 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Methods & Price List</title>
-  <style>
-    body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:radial-gradient(circle at top, #1b1f2a, #0b0e14 70%);
-      color:#fff;
-    }
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:30px 16px 60px;
-    }
-    h1,h2,h3{margin:10px 0}
-    h1{font-size:34px;text-align:center}
-    h2{font-size:26px;margin-top:40px}
-    h3{font-size:20px}
-    .card{
-      background:rgba(255,255,255,0
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bayramınız Mübarek Olsun</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #0f2027, #2c5364);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+h1 {
+    margin-top: 80px;
+    font-size: 40px;
+    color: gold;
+    text-shadow: 0 0 20px gold;
+}
+
+textarea {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: gold;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#mesajlar {
+    margin-top: 30px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.mesaj {
+    background: rgba(255,255,255,0.1);
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Yıldız animasyonu */
+.yildiz {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    animation: parla 2s infinite;
+}
+
+@keyframes parla {
+    0% {opacity:0;}
+    50% {opacity:1;}
+    100% {opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌙 Bayramınız Mübarek Olsun 🌙</h1>
+
+<p>Herkese hayırlı bayramlar 💫</p>
+
+<textarea id="mesaj" placeholder="İletiniz nedir?"></textarea><br>
+<button onclick="gonder()">Gönder</button>
+
+<div id="mesajlar"></div>
+
+<script>
+// Yıldız efekti
+for (let i = 0; i < 100; i++) {
+    let y = document.createElement("div");
+    y.className = "yildiz";
+    y.style.top = Math.random() * window.innerHeight + "px";
+    y.style.left = Math.random() * window.innerWidth + "px";
+    document.body.appendChild(y);
+}
+
+// Mesaj gönder
+function gonder() {
+    let mesaj = document.getElementById("mesaj").value;
+
+    if (!mesaj) return alert("Boş gönderemezsin!");
+
+    // ekrana ekle
+    let div = document.createElement("div");
+    div.className = "mesaj";
+    div.innerText = mesaj;
+    document.getElementById("mesajlar").prepend(div);
+
+    // API'ye gönder (ngrok linkini buraya koy)
+    fetch("https://BURAYA_NGROK_LINK/mesaj", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: mesaj })
+    });
+
+    document.getElementById("mesaj").value = "";
+}
+</script>
+
+</body>
+</html>
