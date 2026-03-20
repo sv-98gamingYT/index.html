@@ -1,184 +1,40 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>WHSKY Pricelist</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#06080f;
-  --card:#0c1020;
-  --line:rgba(0,255,200,.25);
-  --neon:#00ffe0;
-  --neon2:#00a3ff;
-  --red:#ff3b5c;
-  --green:#22ff88;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Orbitron',system-ui,Arial;
-  background:
-    radial-gradient(900px 400px at 50% -10%, #0e1636 0%, transparent 60%),
-    radial-gradient(700px 300px at 10% 10%, #08112a 0%, transparent 60%),
-    var(--bg);
-  color:#eaffff;
-}/* INTRO */ #intro{ position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:radial-gradient(circle at center,#0b1330,#04060c 70%); } #intro h1{ font-size:64px; letter-spacing:6px; margin:0; color:var(--neon); text-shadow: 0 0 10px var(--neon), 0 0 30px var(--neon), 0 0 60px var(--neon2); animation:glow 1.5s ease-in-out infinite alternate; } @keyframes glow{from{opacity:.7}to{opacity:1}}
-
-.container{max-width:1100px;margin:auto;padding:26px 16px 70px} .header{display:flex;justify-content:center;align-items:center;margin-bottom:14px} .badge{padding:6px 12px;border-radius:999px;font-weight:700;font-size:12px} .badge.ext{background:rgba(34,255,136,.15);color:var(--green);border:1px solid rgba(34,255,136,.35)} .badge.int{background:rgba(255,59,92,.15);color:var(--red);border:1px solid rgba(255,59,92,.35)}
-
-.card{ background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02)) , var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; margin-top:18px; box-shadow:0 0 0 1px rgba(0,255,200,.08), 0 10px 40px rgba(0,0,0,.6); }
-
-h1,h2,h3{margin:8px 0;text-align:center} .neon{ color:var(--neon); text-shadow:0 0 10px var(--neon),0 0 30px var(--neon2); }
-
-.methods,.prices{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); } .method,.price-box{ background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55)); border:1px solid var(--line); border-radius:14px; padding:14px; } .method{display:flex;align-items:center;justify-content:center;font-weight:600}
-
-.price-box ul{list-style:none;padding:0;margin:8px 0 0} .price-box li{padding:6px 0;border-bottom:1px dashed rgba(0,255,200,.25)} .price-box li:last-child{border-bottom:none}
-
-.buy{ margin-top:12px;width:100%;padding:12px;border:none;border-radius:12px; background:linear-gradient(135deg,var(--neon),var(--neon2)); color:#001012;font-weight:900;cursor:pointer; box-shadow:0 0 18px rgba(0,255,224,.6); } .buy:hover{filter:brightness(1.05)}
-
-.why{ display:grid;gap:10px;margin-top:16px } .why .item{ background:rgba(0,255,200,.06); border:1px solid var(--line); border-radius:12px;padding:10px 12px }
-
-.footer{text-align:center;opacity:.75;margin-top:40px;font-size:12px}
-
-/* fade in after intro */ .fade{animation:fadeIn .8s ease forwards} @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}} </style>
-
+    <title>Bayramınız Mübarek Olsun</title>
+    <meta charset="UTF-8">
 </head>
-<body><!-- INTRO --><div id="intro"><h1>WHSKY</h1></div><div class="container fade" id="app" style="display:none"><h1 class="neon">PAYMENT METHODS</h1>
-<div class="card">
-  <div class="methods">
-    <div class="method">IBAN</div>
-    <div class="method">Western Union</div>
-    <div class="method">Binance</div>
-    <div class="method">Binance Giftcard</div>
-    <div class="method">Shopier</div>
-    <div class="method">İtemsatış</div>
-    <div class="method">Papara</div>
-  </div>
-</div><div class="card">
-  <div class="header"><span class="badge ext">EXTERNAL</span></div>
-  <h2 class="neon">Critical Ops Hack (External)</h2>
-  <div class="why">
-    <div class="item">🟢 Runs outside the game process</div>
-    <div class="item">🛡️ Lowest ban risk, safest option</div>
-    <div class="item">✅ Best choice for long-term use</div>
-  </div>
-  <div class="prices">
-    <div class="price-box">
-      <h3>Daily</h3>
-      <ul>
-        <li>Non-Root: 200₺ — $7</li>
-        <li>Root: 100₺ — $5</li>
-        <li>Emulator: 200₺ — $7</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Weekly</h3>
-      <ul>
-        <li>Non-Root: 400₺ — $20</li>
-        <li>Root: 300₺ — $15</li>
-        <li>Emulator: 400₺ — $20</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Monthly</h3>
-      <ul>
-        <li>Non-Root: 1000₺ — $40</li>
-        <li>Root: 700₺ — $25</li>
-        <li>Emulator: 800₺ — $40</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Lifetime</h3>
-      <ul>
-        <li>Non-Root: 3500₺ — $90</li>
-        <li>Root: 3000₺ — $80</li>
-        <li>Emulator: 3500₺ — $90</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-  </div>
-</div>
-  <div class="prices">
-    <div class="price-box">
-      <h3>Daily</h3>
-      <ul>
-        <li>Non-Root (Need vPhoneOS VIP): 200₺ — $7</li>
-        <li>Root: 100₺ — $5</li>
-        <li>Emulator: 200₺ — $7</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Weekly</h3>
-      <ul>
-        <li>Non-Root: 400₺ — $20</li>
-        <li>Root: 300₺ — $15</li>
-        <li>Emulator: 400₺ — $20</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Monthly</h3>
-      <ul>
-        <li>Non-Root: 1000₺ — $40</li>
-        <li>Root: 700₺ — $25</li>
-        <li>Emulator: 800₺ — $40</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Lifetime</h3>
-      <ul>
-        <li>Non-Root: 3500₺ — $90</li>
-        <li>Root: 3000₺ — $80</li>
-        <li>Emulator: 3500₺ — $90</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-  </div>
-</div><div class="card">
-  <div class="header"><span class="badge int">INTERNAL</span></div>
-  <h2 class="neon">Critical Ops Hack (Internal)</h2>
-  <div class="prices">
-    <div class="price-box">
-      <h3>Daily</h3>
-      <ul>
-        <li>Root: 100₺ — $3</li>
-        <li>Emulator: 130₺ — $3</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Weekly</h3>
-      <ul>
-        <li>Non-Root: 250₺ — $10</li>
-        <li>Root: 200₺ — $5</li>
-        <li>Emulator: 250₺ — $7</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-    <div class="price-box">
-      <h3>Monthly</h3>
-      <ul>
-        <li>Non-Root: 650₺ — $20</li>
-        <li>Root: 550₺ — $15</li>
-        <li>Emulator: 600₺ — $17</li>
-      </ul>
-      <button class="buy" onclick="go()">BUY</button>
-    </div>
-  </div>
-</div>
-</div><div class="footer">All purchase buttons redirect to Discord.</div>
-</div><script>
-function go(){ window.location.href='https://discord.gg/jCbKykczSS'; }
-// intro timing
-setTimeout(()=>{
-  document.getElementById('intro').style.display='none';
-  document.getElementById('app').style.display='block';
-},3000);
-</script></body>
+
+<body style="text-align:center; margin-top:100px; font-family:Arial;">
+
+<h1>🌙 Bayramınız Mübarek Olsun 🌙</h1>
+
+<textarea id="mesaj" placeholder="İletiniz nedir?" style="width:300px;height:100px;"></textarea><br><br>
+
+<button onclick="gonder()">Gönder</button>
+
+<script>
+function gonder() {
+    let mesaj = document.getElementById("mesaj").value;
+
+    fetch("https://BURAYA_NGROK_LINK/mesaj", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: mesaj
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Mesaj gönderildi!");
+    })
+    .catch(err => {
+        alert("Hata var: " + err);
+    });
+}
+</script>
+
+</body>
 </html>
