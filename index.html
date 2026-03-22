@@ -8,8 +8,8 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
+    font-family: Arial;
+    background: #0b1220;
     color: white;
 }
 
@@ -23,23 +23,34 @@ h1 {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
     padding: 20px;
 }
 
 .card {
-    background: #111827;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
     padding: 20px;
     margin: 20px 0;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-img {
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.gallery img {
     width: 100%;
     border-radius: 10px;
-    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
 }
 
 .grid {
@@ -49,32 +60,58 @@ img {
 }
 
 @media(max-width:768px){
-    .grid {
+    .gallery, .grid {
         grid-template-columns: 1fr;
     }
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: gold;
+}
+
+.light {
+    background: #f5f5f5;
+    color: black;
 }
 </style>
 </head>
 
 <body>
 
+<button class="toggle" onclick="toggleMode()">Mode</button>
+
 <header>
     <h1>BMW M3 G80</h1>
-    <p>Yüksek performanslı sedan</p>
+    <p>Yüksek Performans Sedan</p>
 </header>
 
 <div class="container">
 
     <div class="card">
-        <h2>🚗 Görseller</h2>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/2021_BMW_M3_Competition_Automatic_3.0.jpg">
+        <h2>📸 Galeri</h2>
+        <div class="gallery">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/2021_BMW_M3_Competition_Automatic_3.0.jpg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/2021_BMW_M3_rear.jpg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/BMW_M3_G80_front.jpg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/BMW_M3_G80_side.jpg">
+        </div>
     </div>
 
     <div class="card">
         <h2>⚙️ Motor</h2>
-        <p>3.0L S58 sıralı 6 silindir</p>
-        <p>Çift turbo (Twin Turbo)</p>
-        <p>Performans odaklı motor mimarisi</p>
+        <p>3.0L S58 Inline-6</p>
+        <p>Çift Turbo (Twin Turbo)</p>
+        <p>Performans odaklı motor</p>
     </div>
 
     <div class="card">
@@ -86,32 +123,30 @@ img {
             </div>
             <div>
                 <p><b>0-100:</b> 3.5 - 4.2 sn</p>
-                <p><b>Maks hız:</b> 250 km/h (limitli)</p>
+                <p><b>Maks hız:</b> 250 km/h</p>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h2>🔧 Teknik Detaylar</h2>
-        <p>Motor kodu: S58</p>
-        <p>Şanzıman: 6 ileri manuel / 8 ileri otomatik</p>
-        <p>Çekiş: RWD / xDrive (4x4)</p>
-        <p>Karbon tavan, M diferansiyel, adaptif süspansiyon</p>
+        <h2>🔧 Teknik</h2>
+        <p>Motor: S58</p>
+        <p>Şanzıman: 6MT / 8AT</p>
+        <p>Çekiş: RWD / xDrive</p>
     </div>
 
     <div class="card">
-        <h2>⛽ Yakıt & Kullanım</h2>
-        <p>Ortalama tüketim: ~9-12 L / 100 km</p>
-        <p>Günlük kullanım + track performansı</p>
-    </div>
-
-    <div class="card">
-        <h2>💰 Fiyat</h2>
-        <p>Yurtdışı: ~75.000€ – 160.000€</p>
-        <p>Türkiye: Vergiler nedeniyle çok daha yüksek</p>
+        <h2>💰 Türkiye Fiyatı</h2>
+        <p><b>Yaklaşık:</b> 14.2M TL – 20M TL</p>
     </div>
 
 </div>
+
+<script>
+function toggleMode(){
+    document.body.classList.toggle("light");
+}
+</script>
 
 </body>
 </html>
