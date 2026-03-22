@@ -2,122 +2,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome</title><style>
+<title>Question</title><style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at top, #1a2a6c, #0f2027);
-    color: white;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial;
     overflow: hidden;
 }
 
 .container {
     text-align: center;
-    animation: fadeIn 2s ease-in-out;
 }
 
 h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-}
-
-p {
-    font-size: 18px;
-    opacity: 0.8;
+    margin-bottom: 40px;
 }
 
 button {
-    margin-top: 20px;
-    padding: 12px 25px;
+    padding: 15px 30px;
+    font-size: 18px;
     border: none;
-    border-radius: 8px;
-    background: gold;
-    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
 
-button:hover {
-    transform: scale(1.05);
+#yes {
+    background: #4CAF50;
+    color: white;
+    margin-right: 20px;
 }
 
-/* Floating shapes */
-.circle {
+#no {
+    background: #f44336;
+    color: white;
     position: absolute;
-    border-radius: 50%;
-    opacity: 0.2;
-    animation: float 10s infinite ease-in-out;
 }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-50px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* hidden content */
-.hidden {
-    display: none;
-    margin-top: 30px;
-}
-
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    backdrop-filter: blur(10px);
+.fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    font-size: 40px !important;
 }
 </style></head><body><div class="container">
-    <h1>Hoş Geldin ✨</h1>
-    <p>Devam etmek için butona bas</p>
-    <button onclick="reveal()">Başla</button><div id="content" class="hidden">
-    <h2>🎉 Sürpriz Açıldı 🎉</h2>
-    <div class="card">
-        <p>Bu site modern bir demo arayüzdür.</p>
-        <p>Animasyonlar, geçişler ve etkileşimler içerir.</p>
-    </div>
-
-    <div class="card">
-        <h3>Mini Not</h3>
-        <input id="note" placeholder="Bir şey yaz..." style="padding:10px; border-radius:8px; border:none; width:80%;">
-        <br>
-        <button onclick="saveNote()">Kaydet</button>
-        <p id="saved"></p>
-    </div>
-</div>
-
+    <h1>Benii seviyor musun? ❤️</h1>
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
 </div><script>
-// floating circles
-for (let i = 0; i < 15; i++) {
-    let c = document.createElement("div");
-    c.className = "circle";
-    c.style.width = (Math.random() * 100 + 50) + "px";
-    c.style.height = c.style.width;
-    c.style.left = Math.random() * window.innerWidth + "px";
-    c.style.top = Math.random() * window.innerHeight + "px";
-    c.style.background = "white";
-    c.style.animationDuration = (5 + Math.random() * 10) + "s";
-    document.body.appendChild(c);
-}
+let noBtn = document.getElementById("no");
+let yesBtn = document.getElementById("yes");
+let noClicks = 0;
 
-function reveal() {
-    document.getElementById("content").classList.remove("hidden");
-}
+// initial random position for no button
+moveNoButton();
 
-function saveNote() {
-    let val = document.getElementById("note").value;
-    document.getElementById("saved").innerText = "Kaydedildi: " + val;
+noBtn.addEventListener("click", () => {
+    noClicks++;
+
+    // shrink no button
+    let scale = Math.max(0.2, 1 - noClicks * 0.2);
+    noBtn.style.transform = `scale(${scale})`;
+
+    // change color
+    noBtn.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
+
+    // move position
+    moveNoButton();
+
+    // grow yes button
+    let yesScale = 1 + noClicks * 0.3;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    // after 3 clicks hide no button and expand yes
+    if (noClicks >= 3) {
+        noBtn.style.display = "none";
+        yesBtn.classList.add("fullscreen");
+        yesBtn.innerText = "❤️";
+    }
+});
+
+yesBtn.addEventListener("click", () => {
+    alert("Ben de seni seviyorum ❤️");
+});
+
+function moveNoButton() {
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
 }
 </script></body>
 </html>
