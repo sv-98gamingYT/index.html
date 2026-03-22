@@ -13,75 +13,127 @@ body {
     color: white;
 }
 
+/* HEADER */
 header {
     text-align: center;
     padding: 40px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 h1 {
     color: gold;
 }
 
+/* CONTAINER */
 .container {
     max-width: 1100px;
     margin: auto;
     padding: 20px;
 }
 
+/* CARD */
 .card {
     background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     padding: 20px;
     margin: 20px 0;
     border-radius: 15px;
+    animation: fadeInUp 0.8s ease;
 }
 
-.gallery {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.gallery img {
-    width: 100%;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.gallery img:hover {
-    transform: scale(1.05);
-}
-
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 15px;
 }
 
-@media(max-width:768px){
-    .gallery, .grid {
-        grid-template-columns: 1fr;
-    }
+/* SLIDER */
+.slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slides img {
+    width: 100%;
+    border-radius: 15px;
     cursor: pointer;
 }
 
+/* BUTTONS */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* MODAL */
+#modal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+/* LIGHT MODE */
+.light {
+    background: #f5f5f5;
+    color: black;
+}
+
+/* BUTTON */
 .toggle {
     position: fixed;
     top: 20px;
     right: 20px;
     background: gold;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-.light {
-    background: #f5f5f5;
-    color: black;
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeInUp {
+    from {transform: translateY(20px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+@media(max-width:768px){
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -92,21 +144,18 @@ button {
 
 <header>
     <h1>BMW M3 G80</h1>
-    <p>Yüksek Performans Sedan</p>
+    <p>Premium Performans Sedan</p>
 </header>
 
 <div class="container">
 
-    <div class="card">
-        <h2>📸 Galeri</h2>
-        <div class="gallery">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/2021_BMW_M3_Competition_Automatic_3.0.jpg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/2021_BMW_M3_rear.jpg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/BMW_M3_G80_front.jpg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/BMW_M3_G80_side.jpg">
+    
+            <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+            <button class="nav-btn next" onclick="nextSlide()">›</button>
         </div>
     </div>
 
+    <!-- MOTOR -->
     <div class="card">
         <h2>⚙️ Motor</h2>
         <p>3.0L S58 Inline-6</p>
@@ -114,6 +163,7 @@ button {
         <p>Performans odaklı motor</p>
     </div>
 
+    <!-- PERFORMANCE -->
     <div class="card">
         <h2>⚡ Performans</h2>
         <div class="grid">
@@ -128,21 +178,57 @@ button {
         </div>
     </div>
 
+    <!-- TECH -->
     <div class="card">
         <h2>🔧 Teknik</h2>
-        <p>Motor: S58</p>
+        <p>Motor Kodu: S58</p>
         <p>Şanzıman: 6MT / 8AT</p>
         <p>Çekiş: RWD / xDrive</p>
     </div>
 
+    <!-- PRICE -->
     <div class="card">
         <h2>💰 Türkiye Fiyatı</h2>
-        <p><b>Yaklaşık:</b> 14.2M TL – 20M TL</p>
+        <p>Yaklaşık: 14.2M TL – 20M TL</p>
     </div>
 
 </div>
 
+<!-- MODAL -->
+<div id="modal" onclick="closeImg()">
+    <img id="modalImg">
+</div>
+
 <script>
+let index = 0;
+const slides = document.getElementById("slides");
+
+function showSlide(){
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide(){
+    index = (index + 1) % 3;
+    showSlide();
+}
+
+function prevSlide(){
+    index = (index - 1 + 3) % 3;
+    showSlide();
+}
+
+/* AUTO SLIDE */
+setInterval(nextSlide, 4000);
+
+function openImg(src){
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalImg").src = src;
+}
+
+function closeImg(){
+    document.getElementById("modal").style.display = "none";
+}
+
 function toggleMode(){
     document.body.classList.toggle("light");
 }
