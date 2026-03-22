@@ -1,113 +1,117 @@
-<!DOCTYPE html><html lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seviyor musun?</title><style>
+<title>BMW M3 G80</title>
+
+<style>
 body {
     margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    font-family: Arial;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
 }
 
-.card {
-    width: 90%;
-    max-width: 400px;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
+header {
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 40px;
 }
 
 h1 {
-    margin-bottom: 30px;
-    font-size: 22px;
+    color: gold;
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
 }
 
-button {
-    padding: 12px 25px;
-    font-size: 16px;
-    border: none;
+.card {
+    background: #111827;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+img {
+    width: 100%;
     border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    margin-top: 10px;
 }
 
-#yes {
-    background: #4CAF50;
-    color: white;
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-#no {
-    background: #f44336;
-    color: white;
-    position: absolute;
-}
-</style></head><body><div class="card">
-    <h1>Beni seviyor musun? ❤️</h1>
-    <div class="buttons">
-        <button id="yes">Evet</button>
-        <button id="no">Hayır</button>
-    </div>
-    <p id="msg"></p>
-</div><script>
-let noBtn = document.getElementById("no");
-let yesBtn = document.getElementById("yes");
-let msg = document.getElementById("msg");
-let noClicks = 0;
-
-// initial position
-moveNoButton();
-
-noBtn.addEventListener("click", () => {
-    noClicks++;
-
-    // move button
-    moveNoButton();
-
-    // shrink a bit
-    let scale = Math.max(0.5, 1 - noClicks * 0.1);
-    noBtn.style.transform = `scale(${scale})`;
-
-    // change color randomly
-    noBtn.style.background = `hsl(${Math.random()*360},70%,50%)`;
-
-    // yes grows slightly
-    let yesScale = 1 + noClicks * 0.1;
-    yesBtn.style.transform = `scale(${yesScale})`;
-
-    // messages
-    if(noClicks === 1) msg.innerText = ":(";
-    if(noClicks === 2) msg.innerText = ";(";
-    if(noClicks === 3) msg.innerText = "-_-";
-
-    // hide after 4 clicks
-    if(noClicks >= 4){
-        noBtn.style.display = "none";
-        msg.innerText = ":)";
+@media(max-width:768px){
+    .grid {
+        grid-template-columns: 1fr;
     }
-});
-
-yesBtn.addEventListener("click", () => {
-    msg.innerText = "Ben de seni seviyorum ❤️";
-});
-
-function moveNoButton(){
-    let x = Math.random() * 250;
-    let y = Math.random() * 100;
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
 }
-</script></body>
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>BMW M3 G80</h1>
+    <p>Yüksek performanslı sedan</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>🚗 Görseller</h2>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/2021_BMW_M3_Competition_Automatic_3.0.jpg">
+    </div>
+
+    <div class="card">
+        <h2>⚙️ Motor</h2>
+        <p>3.0L S58 sıralı 6 silindir</p>
+        <p>Çift turbo (Twin Turbo)</p>
+        <p>Performans odaklı motor mimarisi</p>
+    </div>
+
+    <div class="card">
+        <h2>⚡ Performans</h2>
+        <div class="grid">
+            <div>
+                <p><b>Güç:</b> 473 - 510 HP</p>
+                <p><b>Tork:</b> 550 Nm</p>
+            </div>
+            <div>
+                <p><b>0-100:</b> 3.5 - 4.2 sn</p>
+                <p><b>Maks hız:</b> 250 km/h (limitli)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🔧 Teknik Detaylar</h2>
+        <p>Motor kodu: S58</p>
+        <p>Şanzıman: 6 ileri manuel / 8 ileri otomatik</p>
+        <p>Çekiş: RWD / xDrive (4x4)</p>
+        <p>Karbon tavan, M diferansiyel, adaptif süspansiyon</p>
+    </div>
+
+    <div class="card">
+        <h2>⛽ Yakıt & Kullanım</h2>
+        <p>Ortalama tüketim: ~9-12 L / 100 km</p>
+        <p>Günlük kullanım + track performansı</p>
+    </div>
+
+    <div class="card">
+        <h2>💰 Fiyat</h2>
+        <p>Yurtdışı: ~75.000€ – 160.000€</p>
+        <p>Türkiye: Vergiler nedeniyle çok daha yüksek</p>
+    </div>
+
+</div>
+
+</body>
 </html>
