@@ -1,114 +1,123 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!DOCTYPE html><html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bayramınız Mübarek Olsun</title>
-
-<style>
+<title>Welcome</title><style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #2c5364);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #1a2a6c, #0f2027);
     color: white;
+    overflow: hidden;
+}
+
+.container {
     text-align: center;
-    overflow-x: hidden;
+    animation: fadeIn 2s ease-in-out;
 }
 
 h1 {
-    margin-top: 80px;
-    font-size: 42px;
-    color: gold;
-    text-shadow: 0 0 20px gold;
+    font-size: 48px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
 }
 
-textarea {
-    width: 300px;
-    height: 100px;
-    border-radius: 10px;
-    border: none;
-    padding: 10px;
-    margin-top: 20px;
+p {
+    font-size: 18px;
+    opacity: 0.8;
 }
 
 button {
-    margin-top: 15px;
-    padding: 10px 25px;
-    border-radius: 10px;
+    margin-top: 20px;
+    padding: 12px 25px;
     border: none;
+    border-radius: 8px;
     background: gold;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-#messages {
-    margin-top: 40px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+button:hover {
+    transform: scale(1.05);
 }
 
-.msg {
-    background: rgba(255,255,255,0.1);
-    padding: 10px;
-    margin: 8px;
-    border-radius: 10px;
-    text-align: left;
-}
-
-/* Yıldız animasyonu */
-.star {
+/* Floating shapes */
+.circle {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    animation: blink 2s infinite;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: float 10s infinite ease-in-out;
 }
 
-@keyframes blink {
-    0% {opacity:0;}
-    50% {opacity:1;}
-    100% {opacity:0;}
-}
-</style>
-</head>
-
-<body>
-
-<h1>🌙 Bayramınız Mübarek Olsun 🌙</h1>
-<p>Herkese hayırlı bayramlar ✨</p>
-
-<textarea id="input" placeholder="İletiniz nedir?"></textarea><br>
-<button onclick="sendMessage()">Gönder</button>
-
-<div id="messages"></div>
-
-<script>
-// yıldız efekti
-for (let i = 0; i < 80; i++) {
-    let s = document.createElement("div");
-    s.className = "star";
-    s.style.top = Math.random() * window.innerHeight + "px";
-    s.style.left = Math.random() * window.innerWidth + "px";
-    document.body.appendChild(s);
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-50px); }
+    100% { transform: translateY(0px); }
 }
 
-// mesaj gönder
-function sendMessage() {
-    const input = document.getElementById("input");
-    const text = input.value.trim();
-
-    if (!text) return alert("Mesaj boş olamaz");
-
-    const div = document.createElement("div");
-    div.className = "msg";
-    div.innerText = text;
-
-    document.getElementById("messages").prepend(div);
-
-    input.value = "";
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-</script>
 
-</body>
+/* hidden content */
+.hidden {
+    display: none;
+    margin-top: 30px;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+</style></head><body><div class="container">
+    <h1>Hoş Geldin ✨</h1>
+    <p>Devam etmek için butona bas</p>
+    <button onclick="reveal()">Başla</button><div id="content" class="hidden">
+    <h2>🎉 Sürpriz Açıldı 🎉</h2>
+    <div class="card">
+        <p>Bu site modern bir demo arayüzdür.</p>
+        <p>Animasyonlar, geçişler ve etkileşimler içerir.</p>
+    </div>
+
+    <div class="card">
+        <h3>Mini Not</h3>
+        <input id="note" placeholder="Bir şey yaz..." style="padding:10px; border-radius:8px; border:none; width:80%;">
+        <br>
+        <button onclick="saveNote()">Kaydet</button>
+        <p id="saved"></p>
+    </div>
+</div>
+
+</div><script>
+// floating circles
+for (let i = 0; i < 15; i++) {
+    let c = document.createElement("div");
+    c.className = "circle";
+    c.style.width = (Math.random() * 100 + 50) + "px";
+    c.style.height = c.style.width;
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.top = Math.random() * window.innerHeight + "px";
+    c.style.background = "white";
+    c.style.animationDuration = (5 + Math.random() * 10) + "s";
+    document.body.appendChild(c);
+}
+
+function reveal() {
+    document.getElementById("content").classList.remove("hidden");
+}
+
+function saveNote() {
+    let val = document.getElementById("note").value;
+    document.getElementById("saved").innerText = "Kaydedildi: " + val;
+}
+</script></body>
 </html>
