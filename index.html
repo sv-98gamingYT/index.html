@@ -88,14 +88,14 @@ noBtn.addEventListener("click", () => {
     yesBtn.style.transform = `scale(${yesScale})`;
 
     // messages
-    if(noClicks === 1) msg.innerText = "Emin misin? 🤔";
-    if(noClicks === 2) msg.innerText = "Bir daha düşün 😅";
-    if(noClicks === 3) msg.innerText = "Son şans! 😳";
+    if(noClicks === 1) msg.innerText = ":(";
+    if(noClicks === 2) msg.innerText = ";(";
+    if(noClicks === 3) msg.innerText = "-_-";
 
     // hide after 4 clicks
     if(noClicks >= 4){
         noBtn.style.display = "none";
-        msg.innerText = "Kaçamazsın 😄";
+        msg.innerText = ":)";
     }
 });
 
