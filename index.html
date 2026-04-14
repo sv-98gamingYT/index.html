@@ -2,372 +2,287 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> D8 | Team Draglate | INTEL PANEL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>D8 | Team Draglate</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap');
 
         :root {
-            --cyan: #00e5ff;
+            --cyan: #00f2ff;
             --red: #ff003c;
-            --dark-bg: #030303;
-            --panel-bg: #0a0a0c;
-            --border: #1f1f23;
-            --text-main: #e0e0e0;
-            --text-muted: #6b6b76;
-            --gold: #ffb800;
+            --bg: #050505;
+            --card: #0c0c0e;
+            --border: #1a1a1d;
+            --text: #ffffff;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body { 
-            background-color: var(--dark-bg);
-            background-image: 
-                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            color: var(--text-main); 
+            background: var(--bg); 
+            color: var(--text); 
             font-family: 'Rajdhani', sans-serif; 
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* HEADER */
         .header { 
-            height: 70px; background: rgba(3,3,3,0.95); display: flex; 
-            align-items: center; justify-content: space-between; padding: 0 25px; 
-            border-bottom: 1px solid var(--cyan); position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+            height: 65px; background: rgba(0,0,0,0.95); display: flex; 
+            align-items: center; justify-content: space-between; padding: 0 20px; 
+            border-bottom: 2px solid var(--cyan); position: fixed; top: 0; width: 100%; z-index: 999;
             backdrop-filter: blur(10px);
         }
 
-        .brand-text { font-family: 'Share Tech Mono', monospace; font-size: 24px; letter-spacing: 2px; color: #fff; text-shadow: 0 0 10px var(--cyan); }
-        .brand-text span { color: var(--cyan); }
-        
-        .menu-trigger { 
-            cursor: pointer; padding: 8px 15px; border: 1px solid var(--cyan); 
-            color: var(--cyan); font-family: 'Share Tech Mono'; font-size: 14px; 
-            border-radius: 3px; transition: 0.3s; background: transparent;
-        }
-        .menu-trigger:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); }
+        .brand { font-family: 'Share Tech Mono'; font-size: 22px; letter-spacing: 2px; text-shadow: 0 0 10px var(--cyan); }
+        .brand span { color: var(--cyan); }
 
-        /* SIDEBAR (YAN MENÜ) */
+        .menu-btn { 
+            background: none; border: 1px solid var(--cyan); color: var(--cyan);
+            padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: 'Share Tech Mono';
+            font-size: 14px; transition: 0.3s; z-index: 1001;
+        }
+        .menu-btn:active { background: var(--cyan); color: #000; }
+
+        /* YAN MENÜ - KESİN ÇÖZÜM */
         .sidebar { 
-            position: fixed; top: 0; left: -320px; width: 300px; height: 100%; 
-            background: rgba(8,8,10,0.98); z-index: 2000; transition: 0.4s ease-in-out;
-            padding: 20px; border-right: 1px solid var(--border); overflow-y: auto;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.9);
+            position: fixed; top: 0; left: -100%; width: 280px; height: 100%; 
+            background: #080808; z-index: 2000; transition: 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+            padding: 20px; border-right: 2px solid var(--cyan); overflow-y: auto;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.9);
         }
-        .sidebar.active { left: 0; border-right: 1px solid var(--cyan); }
+        .sidebar.active { left: 0; }
         
-        /* SCROLLBAR */
-        .sidebar::-webkit-scrollbar { width: 5px; }
-        .sidebar::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 5px; }
-        
-        .admin-profile { 
-            text-align: center; margin-bottom: 25px; padding: 20px; 
-            background: linear-gradient(180deg, rgba(255,184,0,0.1) 0%, transparent 100%);
-            border: 1px solid var(--gold); border-radius: 10px; position: relative;
+        .overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); display: none; z-index: 1500; backdrop-filter: blur(4px);
         }
-        .admin-profile i { font-size: 30px; color: var(--gold); margin-bottom: 10px; text-shadow: 0 0 10px var(--gold); }
-        .admin-profile h2 { font-size: 20px; color: #fff; font-family: 'Share Tech Mono'; margin-bottom: 5px;}
-        .admin-profile span { font-size: 12px; color: #00ff88; font-weight: 600; letter-spacing: 1px; }
-
-        .section-label { font-size: 12px; color: var(--text-muted); font-weight: 700; letter-spacing: 2px; margin: 20px 0 10px 5px; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 5px;}
-        
-        /* Dropdown Menü Stili */
-        .nav-item { margin-bottom: 5px; }
-        .nav-btn { 
-            padding: 12px 15px; color: var(--text-main); text-decoration: none; display: flex; 
-            justify-content: space-between; align-items: center;
-            font-size: 16px; font-weight: 600; border-radius: 5px; transition: 0.3s; cursor: pointer;
-            background: transparent; border: 1px solid transparent;
-        }
-        .nav-btn i.icon { width: 25px; color: var(--cyan); text-align: left; }
-        .nav-btn i.arrow { font-size: 10px; transition: 0.3s; color: #555; }
-        .nav-btn:hover { background: rgba(0, 229, 255, 0.05); border-color: rgba(0, 229, 255, 0.2); }
-        
-        .submenu { display: none; padding-left: 10px; margin-top: 5px; border-left: 1px dashed #333; margin-left: 15px; }
-        .submenu.open { display: block; animation: slideDown 0.3s ease-out; }
-        .sub-link { 
-            padding: 8px 15px; color: #999; font-size: 15px; display: block; 
-            text-decoration: none; transition: 0.2s; cursor: pointer; font-weight: 500;
-            position: relative;
-        }
-        .sub-link::before { content: '>'; position: absolute; left: 0; color: transparent; transition: 0.2s; font-family: 'Share Tech Mono'; }
-        .sub-link:hover { color: #fff; padding-left: 25px; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-        .sub-link:hover::before { color: var(--cyan); }
-
-        /* MAIN CONTENT & PANELS */
-        .main-content { padding: 30px 15px; max-width: 800px; margin: 0 auto; min-height: 80vh; }
-        
-        .panel-view { display: none; }
-        .panel-view.active { display: block; animation: fadeIn 0.4s ease; }
-        
-        .prime-card { 
-            background: var(--panel-bg); border: 1px solid var(--border); border-radius: 10px; 
-            padding: 30px; margin-bottom: 25px; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .prime-card::before { 
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; 
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent); 
-        }
-
-        .view-title { 
-            font-family: 'Share Tech Mono', monospace; font-size: 20px; color: #fff; 
-            margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
-        }
-        .view-title i { color: var(--cyan); }
-
-        /* FORMLAR (Hacker Teması) */
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 13px; color: var(--cyan); margin-bottom: 5px; letter-spacing: 1px; text-transform: uppercase; }
-        .input-group input {
-            background: #050505; border: 1px solid #222; color: #fff; padding: 15px;
-            border-radius: 5px; width: 100%; box-sizing: border-box;
-            outline: none; font-size: 16px; font-family: 'Share Tech Mono', monospace; transition: 0.3s;
-        }
-        .input-group input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,229,255,0.1); background: #080808;}
-
-        .action-button {
-            background: transparent; border: 1px solid var(--cyan); padding: 15px; color: var(--cyan);
-            border-radius: 5px; width: 100%; font-weight: 700; font-size: 16px; font-family: 'Share Tech Mono';
-            cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 10px;
-        }
-        .action-button:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
-
-        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-top: 25px; }
-        .status-box { background: #050505; padding: 15px; border-radius: 5px; border: 1px solid #1a1a1a; text-align: center; }
-        .status-box span { display: block; font-size: 11px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase;}
-        .status-box strong { color: #fff; font-family: 'Share Tech Mono'; font-size: 16px; }
-        .text-online { color: #00ff88 !important; text-shadow: 0 0 10px #00ff88; }
-        .text-offline { color: var(--red) !important; }
-
-        /* MODAL / RESULT TERMINAL */
-        #result-screen { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); z-index: 9999; flex-direction: column; 
-            justify-content: center; align-items: center; backdrop-filter: blur(5px); 
-        }
-        .terminal-box { 
-            border: 1px solid #333; padding: 30px; border-radius: 5px; background: #050505; 
-            text-align: center; max-width: 450px; width: 90%; position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-        }
-        .terminal-header {
-            position: absolute; top: 0; left: 0; width: 100%; background: #111; padding: 5px 10px;
-            font-size: 10px; color: #555; text-align: left; font-family: 'Share Tech Mono'; border-bottom: 1px solid #333;
-        }
-        
-        .loader-container { margin: 30px auto 20px auto; display: flex; justify-content: center; align-items: center; height: 50px; }
-        .matrix-loader { color: var(--cyan); font-family: 'Share Tech Mono'; font-size: 18px; letter-spacing: 2px;}
-
-        .res-title { font-family: 'Share Tech Mono'; font-size: 22px; margin-top: 20px; }
-        .res-text { color: #888; font-size: 15px; margin-top: 10px; line-height: 1.5; }
-        
-        .res-btn {
-            background: transparent; border: 1px solid #555; color: #fff; padding: 10px 20px; 
-            border-radius: 3px; cursor: pointer; margin-top: 25px; font-family: 'Share Tech Mono'; transition: 0.3s;
-        }
-        .res-btn:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .cursor-blink { animation: blink 1s infinite; }
-        
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; z-index: 1500; }
         .overlay.active { display: block; }
+
+        /* PROFİL */
+        .profile { 
+            padding: 20px; border: 1px solid #ffb800; border-radius: 8px; text-align: center; margin-bottom: 20px;
+            background: rgba(255,184,0,0.05);
+        }
+        .profile h2 { font-family: 'Share Tech Mono'; font-size: 18px; color: #ffb800; }
+        .profile span { font-size: 11px; color: #00ff88; letter-spacing: 1px; }
+
+        /* MENÜ LİNKLERİ */
+        .label { font-size: 11px; color: #444; text-transform: uppercase; letter-spacing: 2px; margin: 20px 0 10px; border-bottom: 1px solid #111; }
+        
+        .nav-link { 
+            display: flex; align-items: center; padding: 12px; color: #ccc; text-decoration: none;
+            font-size: 16px; border-radius: 5px; margin-bottom: 5px; cursor: pointer; transition: 0.2s;
+        }
+        .nav-link:hover { background: rgba(0,242,255,0.1); color: var(--cyan); }
+        .nav-link i { width: 30px; color: var(--cyan); }
+
+        .sub-menu { display: none; padding-left: 25px; margin-bottom: 10px; border-left: 1px solid #222; }
+        .sub-menu.open { display: block; animation: slideIn 0.3s; }
+        .sub-item { padding: 8px 0; color: #888; display: block; font-size: 14px; cursor: pointer; text-decoration: none; }
+        .sub-item:hover { color: #fff; }
+
+        /* ANA İÇERİK */
+        .container { padding: 90px 20px 30px; max-width: 600px; margin: 0 auto; }
+        .card { background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 12px; margin-bottom: 20px; position: relative; }
+        .card::after { content: ''; position: absolute; top:0; left:0; width:3px; height:100%; background: var(--cyan); border-radius: 12px 0 0 12px; }
+
+        .input-box { margin-bottom: 15px; }
+        .input-box label { display: block; font-size: 12px; color: var(--cyan); margin-bottom: 5px; font-family: 'Share Tech Mono'; }
+        input { 
+            width: 100%; background: #000; border: 1px solid #222; color: #fff; padding: 12px; 
+            border-radius: 6px; font-size: 16px; font-family: 'Share Tech Mono'; outline: none;
+        }
+        input:focus { border-color: var(--cyan); }
+
+        .btn { 
+            width: 100%; background: none; border: 1px solid var(--cyan); color: var(--cyan); padding: 15px;
+            font-family: 'Share Tech Mono'; font-size: 16px; cursor: pointer; transition: 0.3s; text-transform: uppercase;
+        }
+        .btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+
+        /* TERMİNAL POPUP */
+        #terminal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.96); z-index: 3000; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
+        }
+        .term-box { width: 100%; max-width: 400px; border: 1px solid #333; background: #050505; padding: 20px; font-family: 'Share Tech Mono'; border-radius: 5px; }
+        .term-log { color: #00ff88; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+        .term-err { color: var(--red); font-weight: bold; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
-
-    <div id="result-screen">
-        <div class="terminal-box">
-            <div class="terminal-header">root@furkqnt-sys:~# process_handler.sh</div>
-            
-            <div class="loader-container" id="loader">
-                <div class="matrix-loader" id="matrix-text">Bağlanıyor...</div>
-            </div>
-            
-            <h3 id="res-title" class="res-title" style="color:var(--cyan); display:none;"></h3>
-            <p id="res-text" class="res-text"></p>
-            
-            <button onclick="closeRes()" id="res-btn" class="res-btn" style="display:none;">[ Geri Dön ]</button>
-        </div>
-    </div>
-
-    <div class="sidebar" id="sidebar">
-        <div class="admin-profile">
-            <i class="fa-solid fa-user-secret"></i>
-            <h2>FurkqntÜcretsiz</h2>
-            <span><i class="fa-solid fa-circle" style="font-size: 8px; vertical-align: middle;"></i> ÇEVRİMİÇİ • LVL 1</span>
-        </div>
-
-        <div class="section-label">Kontrol Merkezi</div>
-        <div class="nav-btn" onclick="showPanel('dash')">
-            <span><i class="fa-solid fa-house icon"></i> Ana Sayfa</span>
-        </div>
-
-        <div class="section-label">Ücretsiz Servisler</div>
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-sorgu')">
-                <span><i class="fa-solid fa-magnifying-glass icon"></i> Sorgu Araçları</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu open" id="m-sorgu">
-                <a class="sub-link" onclick="showPanel('id-serv')">Ad Soyad Sorgu</a>
-                <a class="sub-link" onclick="showPanel('gsm-serv')">GSM Sorgu</a>
-                <a class="sub-link" onclick="showPanel('loc-serv')">Adres Sorgu</a>
-                <a class="sub-link" onclick="showPanel('ip-serv')">IP Analizi</a>
-            </div>
-        </div>
-
-        <div class="section-label">Premium Araçlar (V.I.P)</div>
-        
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-ig')">
-                <span><i class="fa-brands fa-instagram icon"></i> Instagram</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-ig">
-                <a class="sub-link" onclick="runPremiumOp('Gizli Profil Görüntüle')">Gizli Profil Görüntüle</a>
-                <a class="sub-link" onclick="runPremiumOp('Instagram Sızma')">Instagram Sızma</a>
-                <a class="sub-link" onclick="runPremiumOp('DM Mesaj Takibi')">DM Mesaj Takibi</a>
-                <a class="sub-link" onclick="runPremiumOp('Gizli Hikaye İzlenme')">Gizli Hikaye İzlenme</a>
-                <a class="sub-link" onclick="runPremiumOp('Şifresiz Takipçi')">Şifresiz Takipçi Paneli</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-wp')">
-                <span><i class="fa-brands fa-whatsapp icon"></i> WhatsApp</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-wp">
-                <a class="sub-link" onclick="runPremiumOp('WhatsApp Mesaj Okuma')">WhatsApp Sızma / Oku</a>
-                <a class="sub-link" onclick="runPremiumOp('Gelen/Giden Medya Çekimi')">Medya Çekimi</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-galeri')">
-                <span><i class="fa-solid fa-images icon"></i> Medya & Galeri</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-galeri">
-                <a class="sub-link" onclick="runPremiumOp('Galeri Sızma (Android)')">Galeri Sızma (Android)</a>
-                <a class="sub-link" onclick="runPremiumOp('Silinen Fotoğrafları Kurtar')">Silinen Fotoğrafları Kurtar</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-edevlet')">
-                <span><i class="fa-solid fa-building-columns icon"></i> E-Devlet</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-edevlet">
-                <a class="sub-link" onclick="runPremiumOp('E-İmza Sorgu')">E-İmza Sorgu</a>
-                <a class="sub-link" onclick="runPremiumOp('E-Devlet Giriş Sızma')">E-Devlet Giriş</a>
-                <a class="sub-link" onclick="runPremiumOp('Kişiye Ait İmza')">Kişiye Ait İmza</a>
-                <a class="sub-link" onclick="runPremiumOp('E-Devlet Vesika')">E-Devlet Vesika</a>
-                <a class="sub-link" onclick="runPremiumOp('Pasaport Bilgileri')">Pasaport Bilgileri</a>
-                <a class="sub-link" onclick="runPremiumOp('QR Kodlu İkametgah')">QR Kodlu İkametgah</a>
-                <a class="sub-link" onclick="runPremiumOp('Enabiz Takip')">Enabiz Takip</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-tel')">
-                <span><i class="fa-solid fa-mobile-screen icon"></i> Telefon & GSM</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-tel">
-                <a class="sub-link" onclick="runPremiumOp('Adına Kayıtlı GSM')">Adına Kayıtlı GSM</a>
-                <a class="sub-link" onclick="runPremiumOp('IMEI Sorgu')">IMEI Sorgu</a>
-                <a class="sub-link" onclick="runPremiumOp('Fatura Detay Dökümü')">Fatura Detay Dökümü</a>
-                <a class="sub-link" onclick="runPremiumOp('Arama Kayıtları')">Arama Kayıtları</a>
-                <a class="sub-link" onclick="runPremiumOp('Gizli Numara Sorgu')">Gizli Numara Sorgu</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-rat')">
-                <span><i class="fa-solid fa-satellite-dish icon"></i> Cihaz RAT & GPS</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-rat">
-                <a class="sub-link" onclick="runPremiumOp('Anlık Sinyal Takibi')">Anlık Konum (GPS)</a>
-                <a class="sub-link" onclick="runPremiumOp('Mikrofon Dinleme')">Mikrofon Dinleme</a>
-                <a class="sub-link" onclick="runPremiumOp('Kamera Erişimi')">Anlık Kamera Görüntüsü</a>
-                <a class="sub-link" onclick="runPremiumOp('Dosya Yöneticisi')">Dosya Yöneticisi Erişimi</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-polnet')">
-                <span><i class="fa-solid fa-handcuffs icon"></i> Emniyet & Arşiv</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
-            </div>
-            <div class="submenu" id="m-polnet">
-                <a class="sub-link" onclick="runPremiumOp('Sicil Sorgu')">Sicil Sorgu</a>
-                <a class="sub-link" onclick="runPremiumOp('Gözaltı Sorgu')">Gözaltı Sorgu</a>
-                <a class="sub-link" onclick="runPremiumOp('Dava & İcra Sorgu')">Dava & İcra Sorgu</a>
-                <a class="sub-link" onclick="runPremiumOp('Sızdırılmış Veri Taraması')">Derin Ağ / Veri Tarama</a>
-            </div>
-        </div>
-
-    </div>
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
     <header class="header">
-        <button class="menu-trigger" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i> MENU
-        </button>
-        <div class="brand-text">FURKQNT<span>X</span>WHSKY</div>
-        <div style="width: 70px;"></div> </header>
+        <button class="menu-btn" onclick="openMenu()">MENÜ</button>
+        <div class="brand"> FURKQNT <span>x</span> KANISTAY </div>
+        <div style="width:50px"></div>
+    </header>
 
-    <div class="main-content">
-        
-        <div id="dash" class="panel-view active">
-            <div class="prime-card">
-                <h2 style="font-family:'Share Tech Mono'; font-size:22px; color:#fff;">Tünaydın, <span style="color:var(--cyan);">FurkqntÜcretsiz!</span></h2>
-                <p style="color:var(--text-muted); font-size:15px; margin-top: 10px;">Sistemlere güvenli bağlantı sağlandı. İşlem yapmak için sol menüden bir araç seçin.</p>
-                
-                <div class="status-grid">
-                    <div class="status-box"><span>Yetki</span><strong class="text-offline">FREE TIER</strong></div>
-                    <div class="status-box"><span>Sunucu</span><strong class="text-online">AKTİF</strong></div>
-                    <div class="status-box"><span>Tünel İzi</span><strong>GİZLİ</strong></div>
-                    <div class="status-box"><span>Ping</span><strong id="ping" style="color: var(--cyan);">14ms</strong></div>
+    <div class="sidebar" id="sidebar">
+        <div class="profile">
+            <i class="fa-solid fa-user-shield" style="font-size: 24px; color: #ffb800;"></i>
+            <h2>FurkqntÜcretsiz</h2>
+            <span><i class="fa-solid fa-circle" style="font-size: 7px;"></i> ÇEVRİMİÇİ</span>
+        </div>
+
+        <div class="label">ANA DİZİN</div>
+        <div class="nav-link" onclick="location.reload()"><i class="fa-solid fa-house"></i> Panel Home</div>
+
+        <div class="label">PREMIUM ERİŞİM</div>
+        <div class="nav-link" onclick="toggleSub('s-galeri')"><i class="fa-solid fa-images"></i> Medya & Galeri</div>
+        <div class="sub-menu" id="s-galeri">
+            <div class="sub-item" onclick="premium('Galeri Sızma (Android)')">> Galeri Sızma</div>
+            <div class="sub-item" onclick="premium('Fotoğraf Kurtarma')">> Silinenleri Getir</div>
+        </div>
+
+        <div class="nav-link" onclick="toggleSub('s-wp')"><i class="fa-brands fa-whatsapp"></i> WhatsApp Sızma</div>
+        <div class="sub-menu" id="s-wp">
+            <div class="sub-item" onclick="premium('WP Mesaj Oku')">> Mesaj Geçmişi</div>
+            <div class="sub-item" onclick="premium('WP Medya Çekimi')">> Gelen Dosyalar</div>
+        </div>
+
+        <div class="nav-link" onclick="toggleSub('s-ig')"><i class="fa-brands fa-instagram"></i> Instagram VIP</div>
+        <div class="sub-menu" id="s-ig">
+            <div class="sub-item" onclick="premium('Gizli Profil')">> Profil Görüntüle</div>
+            <div class="sub-item" onclick="premium('DM Takip')">> Mesajları Oku</div>
+        </div>
+
+        <div class="label">ÜCRETSİZ SORGULAR</div>
+        <div class="nav-link" onclick="show('id-page')"><i class="fa-solid fa-id-card"></i> Ad Soyad Sorgu</div>
+        <div class="nav-link" onclick="show('gsm-page')"><i class="fa-solid fa-phone"></i> GSM Sorgu</div>
+        <div class="nav-link" onclick="show('ip-page')"><i class="fa-solid fa-globe"></i> IP Sorgu</div>
+    </div>
+
+    <div class="container">
+        <div id="home" class="page">
+            <div class="card">
+                <h3 style="color:var(--cyan); margin-bottom:10px;">SİSTEM DURUMU</h3>
+                <p style="font-size:14px; color:#888;">Hoş geldin FurkqntÜcretsiz. Tüm mernis ve sızma tünelleri %100 kapasite ile çalışıyor.</p>
+                <div style="display:flex; justify-content:space-between; margin-top:20px; font-family:'Share Tech Mono';">
+                    <div>PING: <span style="color:#00ff88;">12ms</span></div>
+                    <div>YETKİ: <span style="color:var(--red);">Kısıtlı</span></div>
                 </div>
             </div>
         </div>
 
-        <div id="id-serv" class="panel-view">
-            <div class="prime-card">
-                <div class="view-title"><i class="fa-solid fa-address-card"></i> Ad Soyad Sorgu</div>
-                <form onsubmit="doFakeQuery(event)">
-                    <div class="input-group">
-                        <label>Hedef Ad</label>
-                        <input type="text" placeholder="Ad girin..." required>
-                    </div>
-                    <div class="input-group">
-                        <label>Hedef Soyad</label>
-                        <input type="text" placeholder="Soyad girin..." required>
-                    </div>
-                    <div class="input-group">
-                        <label>İl (Opsiyonel)</label>
-                        <input type="text" placeholder="İl girin...">
-                    </div>
-                    <div class="input-group">
-                        <label>İlçe (Opsiyonel)</label>
-                        <input type="text" placeholder="İlçe girin...">
-                    </div>
-                    <button type="submit" class="action-button"><i class="
+        <div id="id-page" class="page" style="display:none;">
+            <div class="card">
+                <h3 style="margin-bottom:20px; font-family:'Share Tech Mono';">AD SOYAD SORGULAMA</h3>
+                <div class="input-box">
+                    <label>AD</label>
+                    <input type="text" placeholder="Hedef Adı">
+                </div>
+                <div class="input-box">
+                    <label>SOYAD</label>
+                    <input type="text" placeholder="Hedef Soyadı">
+                </div>
+                <div class="input-box">
+                    <label>İL / İLÇE</label>
+                    <input type="text" placeholder="Şehir (Opsiyonel)">
+                </div>
+                <button class="btn" onclick="startQuery()">SORGULA</button>
+            </div>
+        </div>
+
+        <div id="gsm-page" class="page" style="display:none;">
+            <div class="card">
+                <h3 style="margin-bottom:20px; font-family:'Share Tech Mono';">GSM SORGULAMA</h3>
+                <div class="input-box">
+                    <label>TELEFON NUMARASI</label>
+                    <input type="number" placeholder="5XXXXXXXXX">
+                </div>
+                <button class="btn" onclick="startQuery()">SORGULA</button>
+            </div>
+        </div>
+
+        <div id="ip-page" class="page" style="display:none;">
+            <div class="card">
+                <h3 style="margin-bottom:20px; font-family:'Share Tech Mono';">IP ADRES ANALİZİ</h3>
+                <div class="input-box">
+                    <label>IP ADRESİ</label>
+                    <input type="text" placeholder="127.0.0.1">
+                </div>
+                <button class="btn" onclick="startQuery()">ANALİZ ET</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="terminal">
+        <div class="term-box">
+            <div id="term-content" class="term-log"></div>
+            <button id="close-term" class="btn" style="display:none;" onclick="hideTerm()">KAPAT</button>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function openMenu() {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        function closeMenu() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        function toggleSub(id) {
+            const sub = document.getElementById(id);
+            const isOpen = sub.classList.contains('open');
+            document.querySelectorAll('.sub-menu').forEach(m => m.classList.remove('open'));
+            if(!isOpen) sub.classList.add('open');
+        }
+
+        function show(id) {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+            closeMenu();
+        }
+
+        function startQuery() {
+            const term = document.getElementById('terminal');
+            const content = document.getElementById('term-content');
+            const btn = document.getElementById('close-term');
+            
+            term.style.display = 'flex';
+            btn.style.display = 'none';
+            content.innerHTML = "root@furkqnt:~$ connecting_db...<br>";
+            
+            setTimeout(() => { content.innerHTML += "> Tunneling via 10.0.2.15...<br>"; }, 600);
+            setTimeout(() => { content.innerHTML += "> Searching in Mernis_2024_Secured...<br>"; }, 1200);
+            setTimeout(() => { 
+                content.innerHTML += "<br><span class='term-err'>[!] HATA: DATABASE BULUNAMADI.</span><br>Girilen verilere ait kayıt bulunamadı."; 
+                btn.style.display = 'block';
+            }, 2200);
+        }
+
+        function premium(name) {
+            closeMenu();
+            const term = document.getElementById('terminal');
+            const content = document.getElementById('term-content');
+            const btn = document.getElementById('close-term');
+            
+            term.style.display = 'flex';
+            btn.style.display = 'none';
+            content.innerHTML = `root@furkqnt:~$ init ${name}...<br>`;
+            
+            setTimeout(() => { 
+                content.innerHTML += "<br><span class='term-err'>[!] ERİŞİM ENGELİ!</span><br>Bu işlem için Premium abonelik gereklidir.<br>Admin ile iletişime geçin."; 
+                btn.style.display = 'block';
+            }, 1000);
+        }
+
+        function hideTerm() {
+            document.getElementById('terminal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
