@@ -3,296 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FURKQNT x KANISTAY | V3</title>
+    <title>FURKQNT x KANISTAY | PREMIUM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap');
+        /* Modern ve Temiz Yazı Tipi */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --neon: #00ff41; /* Hacker Yeşili */
-            --cyan: #00f2ff;
-            --red: #ff003c;
-            --bg: #020202;
-            --card: #0a0a0a;
-            --border: #151515;
-            --text: #ffffff;
+            --bg: #000000;
+            --card-bg: #0a0a0a; /* Çok hafif gri tonlu siyah */
+            --border: #1a1a1a;
+            --accent: #ffffff; /* Vurgu rengi sadece beyaz */
+            --text-main: #eaeaea;
+            --text-muted: #666666;
+            --error: #ff3b30; /* iOS tarzı hata kırmızısı */
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent; /* Mobilde tıklama izini siler */
+        }
 
         body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Orbitron', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
             overflow-x: hidden;
-            min-height: 100vh;
-            background-image: radial-gradient(circle at center, #051005 0%, #020202 100%);
+            -webkit-font-smoothing: antialiased; /* Yazıları pürüzsüzleştirir */
         }
 
-        /* HEADER */
+        /* ÜST BAR (Minimalist) */
         .header { 
-            height: 70px; background: rgba(0,0,0,0.9); display: flex; 
-            align-items: center; justify-content: space-between; padding: 0 20px; 
-            border-bottom: 2px solid var(--neon); position: fixed; top: 0; width: 100%; z-index: 1000;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            height: 65px; 
+            background: rgba(0,0,0,0.8); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 20px; 
+            border-bottom: 1px solid var(--border); 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000;
+            backdrop-filter: blur(10px); /* Cam efekti */
         }
 
-        .brand { font-family: 'Orbitron'; font-size: 18px; letter-spacing: 3px; color: #fff; font-weight: 700; }
-        .brand span { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
-
-        .menu-btn { 
-            background: none; border: 1px solid var(--neon); color: var(--neon);
-            padding: 10px 18px; border-radius: 2px; cursor: pointer; font-family: 'Share Tech Mono';
-            font-size: 14px; transition: 0.3s; font-weight: bold;
+        .brand-text {
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
         }
-        .menu-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 15px var(--neon); }
+        .brand-text span { color: var(--text-muted); font-weight: 400; }
 
-        /* YAN MENÜ */
+        .menu-trigger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-size: 20px;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .menu-trigger:hover { opacity: 0.7; }
+
+        /* YAN MENÜ (Elegant Slide) */
         .sidebar { 
-            position: fixed; top: 0; left: -100%; width: 300px; height: 100%; 
-            background: #050505; z-index: 2001; transition: 0.5s cubic-bezier(0.1, 0.7, 0.1, 1);
-            padding: 25px; border-right: 1px solid var(--neon); overflow-y: auto;
+            position: fixed; top: 0; left: -100%; width: 280px; height: 100%; 
+            background: var(--card-bg); z-index: 2001; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+            padding: 30px 20px; border-right: 1px solid var(--border); 
+            overflow-y: auto;
+            box-shadow: 15px 0 50px rgba(0,0,0,0.8);
         }
         .sidebar.active { left: 0; }
         
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); display: none; z-index: 2000; backdrop-filter: blur(5px);
+        .admin-profile { 
+            text-align: center; margin-bottom: 40px; 
+            padding-bottom: 20px; border-bottom: 1px solid var(--border);
         }
-        .overlay.active { display: block; }
+        .admin-profile h2 { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 5px; }
+        .admin-profile span { font-size: 11px; color: #00ff88; font-weight: 500; letter-spacing: 1px; }
 
-        /* PROFİL */
-        .profile { 
-            padding: 20px; border: 1px solid var(--neon); border-radius: 4px; text-align: center; margin-bottom: 25px;
-            background: rgba(0, 255, 65, 0.03); box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.1);
-        }
-        .profile h2 { font-family: 'Share Tech Mono'; font-size: 18px; color: var(--neon); }
-        .profile span { font-size: 10px; color: #00ff88; letter-spacing: 2px; text-transform: uppercase; }
-
-        /* MENÜ LİNKLERİ */
-        .label { font-size: 10px; color: #444; text-transform: uppercase; letter-spacing: 3px; margin: 25px 0 10px; font-weight: bold; }
+        .section-label { font-size: 10px; color: var(--text-muted); font-weight: 700; margin: 25px 0 10px 10px; text-transform: uppercase; letter-spacing: 2px; }
         
+        /* Menü Linkleri */
+        .nav-item { margin-bottom: 5px; }
         .nav-link { 
-            display: flex; align-items: center; padding: 14px; color: #aaa; text-decoration: none;
-            font-size: 14px; border-radius: 4px; margin-bottom: 6px; cursor: pointer; transition: 0.2s;
-            border: 1px solid transparent;
+            padding: 12px 15px; color: #aaa; text-decoration: none; display: flex; 
+            justify-content: space-between; align-items: center;
+            font-size: 14px; font-weight: 500; border-radius: 8px; transition: 0.2s; cursor: pointer;
         }
-        .nav-link:hover { border-color: var(--neon); color: var(--neon); background: rgba(0, 255, 65, 0.05); }
-        .nav-link i { width: 30px; font-size: 16px; }
+        .nav-link:hover { background: rgba(255,255,255,0.03); color: #fff; }
+        .nav-link i.icon { width: 25px; color: var(--accent); font-size: 14px; text-align: left;}
+        .nav-link i.arrow { font-size: 9px; transition: 0.3s; color: #333; }
 
-        .sub-menu { display: none; padding-left: 20px; margin-bottom: 15px; border-left: 1px solid #111; }
-        .sub-menu.open { display: block; animation: slideIn 0.3s; }
-        .sub-item { padding: 10px 0; color: #666; display: block; font-size: 13px; cursor: pointer; text-decoration: none; font-family: 'Share Tech Mono'; }
-        .sub-item:hover { color: var(--neon); }
+        .submenu { display: none; padding-left: 20px; margin-top: 5px; }
+        .submenu.open { display: block; animation: fadeInSub 0.3s ease; }
+        .sub-link { 
+            padding: 9px 15px; color: #777; font-size: 13px; display: block; 
+            text-decoration: none; transition: 0.2s; cursor: pointer;
+        }
+        .sub-link:hover { color: #fff; }
 
         /* ANA İÇERİK */
-        .container { padding: 100px 20px 40px; max-width: 700px; margin: 0 auto; }
-        .card { 
-            background: var(--card); border: 1px solid var(--border); padding: 30px; border-radius: 4px; 
-            margin-bottom: 25px; position: relative; overflow: hidden;
+        .main-content { padding: 90px 20px 40px; max-width: 600px; margin: 0 auto; transition: 0.3s; }
+        .panel-view { display: none; }
+        .panel-view.active { display: block; animation: fadeInPage 0.5s ease; }
+
+        .prime-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .card::before { content: ''; position: absolute; top:0; left:0; width:100%; height:1px; background: linear-gradient(90deg, transparent, var(--neon), transparent); }
 
-        .input-box { margin-bottom: 20px; }
-        .input-box label { display: block; font-size: 11px; color: #555; margin-bottom: 8px; letter-spacing: 2px; }
-        input { 
-            width: 100%; background: #000; border: 1px solid #222; color: var(--neon); padding: 15px; 
-            border-radius: 2px; font-size: 16px; font-family: 'Share Tech Mono'; outline: none; transition: 0.3s;
+        .view-title { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 25px; letter-spacing: 0.5px;}
+        
+        /* FORMLAR (Minimalist) */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+        input {
+            background: #000; border: 1px solid var(--border); color: #fff; padding: 16px;
+            border-radius: 8px; width: 100%; box-sizing: border-box;
+            font-size: 14px; transition: 0.3s; font-family: 'Inter', sans-serif;
         }
-        input:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,255,65,0.1); }
+        input:focus { border-color: #333; background: #050505; }
 
-        .btn { 
-            width: 100%; background: none; border: 1px solid var(--neon); color: var(--neon); padding: 18px;
-            font-family: 'Orbitron'; font-size: 14px; cursor: pointer; transition: 0.4s; text-transform: uppercase; font-weight: bold;
-            letter-spacing: 2px;
+        .action-button {
+            background: #fff; border: none; padding: 16px; color: #000;
+            border-radius: 8px; width: 100%; font-weight: 600; font-size: 14px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; margin-top: 10px;
         }
-        .btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 25px var(--neon); }
+        .action-button:active { transform: scale(0.98); opacity: 0.8; }
 
-        /* TERMİNAL */
-        #terminal { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 3000; flex-direction: column; justify-content: center; align-items: center; padding: 20px;
-        }
-        .term-box { width: 100%; max-width: 500px; border: 1px solid var(--neon); background: #000; padding: 25px; font-family: 'Share Tech Mono'; }
-        .term-log { color: var(--neon); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
-        .term-err { color: var(--red); text-shadow: 0 0 5px var(--red); }
-
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        /* İSTATİSTİKLER (Dashboard) */
+        .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .stat-box { background: #050505; border: 1px solid var(--border); padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-box span { display: block; font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;}
+        .stat-box strong { color: #fff; font-size: 15px; font-weight: 600; }
+        
+        /* SONUÇ / MODAL EKRANI (Elegant) */
+        #result-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .result-box { border: 1px solid var(--border); padding: 40px; border-radius: 20px; background: #050505; text-align: center; max-width: 380px; width: 85%; animation: fadeInPage 0.4s ease;}
+        
+        .loader { border: 2px solid #111; border-top: 2px solid #fff; border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeInPage { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInSub { from { opacity: 0; transform: translateX(-5px); } to { opacity: 1; transform: translateX(0); } }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 1500; backdrop-filter: blur(4px); }
+        .overlay.active { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    <div class="overlay" id="overlay"></div>
 
-    <header class="header">
-        <button class="menu-btn" onclick="openMenu()"><i class="fa-solid fa-ghost"></i> MENÜ</button>
-        <div class="brand">FURKQNT <span>x</span> KANISTAY</div>
-        <div style="width:50px"></div>
-    </header>
-
-    <div class="sidebar" id="sidebar">
-        <div class="profile">
-            <h2>FurkqntÜcretsiz</h2>
-            <span>SYSTEM ACCESS: LEVEL 1</span>
+    <div id="result-screen">
+        <div class="result-box">
+            <div class="loader" id="loader"></div>
+            <h3 id="res-title" style="color:#fff; font-size:16px; font-weight:600; margin-bottom:10px;">İŞLENİYOR</h3>
+            <p id="res-text" style="color:#666; font-size:13px; margin-bottom:20px;">Güvenli bağlantı üzerinden istek gönderiliyor...</p>
+            <button onclick="closeRes()" id="res-btn" style="display:none; background:none; border:1px solid #333; color:#fff; padding:12px 25px; border-radius:8px; width:100%; cursor:pointer; font-size:13px; font-weight:500;">Geri Dön</button>
         </div>
-
-        <div class="label">ANA KONTROL</div>
-        <div class="nav-link" onclick="location.reload()"><i class="fa-solid fa-terminal"></i> Dashboard</div>
-
-        <div class="label">SIZMA ARAÇLARI</div>
-        <div class="nav-link" onclick="toggleSub('s-media')"><i class="fa-solid fa-camera-retro"></i> Medya & Galeri</div>
-        <div class="sub-menu" id="s-media">
-            <div class="sub-item" onclick="premium('Galeri Sızma (Android)')">> Android Galeri Erişimi</div>
-            <div class="sub-item" onclick="premium('Cloud Sızma')">> Bulut Yedeklerini Çek</div>
-            <div class="sub-item" onclick="premium('Silinen Medya')">> Silinen Fotoğrafları Kurtar</div>
-        </div>
-
-        <div class="nav-link" onclick="toggleSub('s-social')"><i class="fa-brands fa-whatsapp"></i> Sosyal Casus</div>
-        <div class="sub-menu" id="s-social">
-            <div class="sub-item" onclick="premium('WP Mesaj')">> WhatsApp Mesaj Sızma</div>
-            <div class="sub-item" onclick="premium('WP Medya')">> WhatsApp Galeri Çekme</div>
-            <div class="sub-item" onclick="premium('IG Gizli')">> Instagram Gizli Profil</div>
-            <div class="sub-item" onclick="premium('IG DM')">> Instagram DM Takip</div>
-        </div>
-
-        <div class="label">DEVLET & POLNET</div>
-        <div class="nav-link" onclick="toggleSub('s-gov')"><i class="fa-solid fa-building-shield"></i> Resmi İşlemler</div>
-        <div class="sub-menu" id="s-gov">
-            <div class="sub-item" onclick="premium('E-Devlet Giriş')">> E-Devlet Giriş Sızma</div>
-            <div class="sub-item" onclick="premium('Vesika Sorgu')">> E-Devlet Vesika</div>
-            <div class="sub-item" onclick="premium('Polnet Sicil')">> Polnet Sicil / Arşiv</div>
-            <div class="sub-item" onclick="premium('Gözaltı Sorgu')">> Gözaltı / Karıştığı Olaylar</div>
-        </div>
-
-        <div class="label">TRACKING</div>
-        <div class="nav-link" onclick="toggleSub('s-track')"><i class="fa-solid fa-location-crosshairs"></i> Konum & Sinyal</div>
-        <div class="sub-menu" id="s-track">
-            <div class="sub-item" onclick="premium('Canlı GPS')">> Anlık Konum Takibi</div>
-            <div class="sub-item" onclick="premium('Baz İstasyonu')">> Baz İstasyonu Sinyal Analizi</div>
-            <div class="sub-item" onclick="premium('Otel Kayıt')">> Otel / Pansiyon Kayıtları</div>
-        </div>
-
-        <div class="label">FREE TOOLS</div>
-        <div class="nav-link" onclick="show('id-page')"><i class="fa-solid fa-id-card"></i> Ad Soyad Sorgu</div>
-        <div class="nav-link" onclick="show('gsm-page')"><i class="fa-solid fa-phone"></i> GSM Sorgu</div>
-        <div class="nav-link" onclick="show('ip-page')"><i class="fa-solid fa-network-wired"></i> IP Analiz</div>
     </div>
 
-    <div class="container">
-        <div id="home" class="page">
-            <div class="card">
-                <h3 style="color:var(--neon); margin-bottom:15px;">SİSTEM LOGLARI</h3>
-                <p style="font-family:'Share Tech Mono'; color:#888; font-size:14px;">
-                    [INFO] User: FurkqntÜcretsiz <br>
-                    [INFO] Status: Connected to Core-01 <br>
-                    [WARN] Subscription: No active premium found. <br>
-                    [INFO] Welcome to FURKQNT x KANISTAY panel.
-                </p>
-                <div style="margin-top:25px; border-top:1px solid #111; padding-top:15px; display:flex; justify-content:space-between; font-size:12px;">
-                    <span>SERVER: <b style="color:var(--neon)">ONLINE</b></span>
-                    <span>ENCRYPTION: <b style="color:var(--cyan)">AES-256</b></span>
+    <div class="sidebar" id="sidebar">
+        <div class="admin-profile">
+            <h2>FurkqntÜcretsiz</h2>
+            <span>YÖNETİCİ • LVL 1</span>
+        </div>
+
+        <div class="section-label">ANA MENÜ</div>
+        <div class="nav-btn" onclick="show('dash')"><i class="fa-solid fa-house-chimney icon"></i> Dashboard</div>
+
+        <div class="section-label">ÜCRETSİZ ARAÇLAR</div>
+        <div class="nav-btn" onclick="show('id-serv')"><i class="fa-solid fa-search icon"></i> Ad Soyad Sorgu</div>
+        <div class="nav-btn" onclick="show('gsm-serv')"><i class="fa-solid fa-phone icon"></i> GSM Sorgu</div>
+        <div class="nav-btn" onclick="show('loc-serv')"><i class="fa-solid fa-location-dot icon"></i> Adres Sorgu</div>
+
+        <div class="section-label">PREMIUM ERİŞİM</div>
+        
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-edevlet')"><span><i class="fa-solid fa-building-columns icon"></i> E-Devlet</span> <i class="fa-solid fa-chevron-down arrow"></i></div>
+            <div class="submenu" id="m-edevlet">
+                <a class="sub-link" onclick="runOp('E-İmza Sorgu')">E-İmza Sorgu</a>
+                <a class="sub-link" onclick="runOp('E-Devlet Giriş')">E-Devlet Giriş Sızma</a>
+                <a class="sub-link" onclick="runOp('Pasaport Bilgileri')">Pasaport Bilgileri</a>
+                <a class="sub-link" onclick="runOp('İkametgah Sorgu')">İkametgah (QR)</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-ig')"><span><i class="fa-brands fa-instagram icon"></i> Instagram</span> <i class="fa-solid fa-chevron-down arrow"></i></div>
+            <div class="submenu" id="m-ig">
+                <a class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil</a>
+                <a class="sub-link" onclick="runOp('DM Takip')">DM Mesaj Takibi</a>
+                <a class="sub-link" onclick="runOp('Şifresiz Takipçi')">Şifresiz Takipçi</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-galeri')"><span><i class="fa-solid fa-images icon"></i> Medya & Galeri</span> <i class="fa-solid fa-chevron-down arrow"></i></div>
+            <div class="submenu" id="m-galeri">
+                <a class="sub-link" onclick="runOp('Galeri Sızma')">Galeri Sızma (Android)</a>
+                <a class="sub-link" onclick="runOp('Fotoğraf Kurtarma')">Silinenleri Kurtar</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-tel')"><span><i class="fa-solid fa-mobile icon"></i> Telefon</span> <i class="fa-solid fa-chevron-down arrow"></i></div>
+            <div class="submenu" id="m-tel">
+                <a class="sub-link" onclick="runOp('Anlık Konum')">Anlık Konum</a>
+                <a class="sub-link" onclick="runOp('Fatura Dökümü')">Fatura Detay Dökümü</a>
+                <a class="sub-link" onclick="runOp('İnternet Trafiği')">İnternet Trafiği</a>
+            </div>
+        </div>
+
+    </div>
+
+    <header class="header">
+        <button class="menu-trigger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        <div class="brand-text">FURKQNT <span>x</span> KANISTAY</div>
+        <div style="width: 40px;"></div> </header>
+
+    <div class="main-content">
+        <div id="dash" class="panel-view active">
+            <div class="prime-card">
+                <h2 style="font-size:16px; font-weight:500; color:#fff;">Tünaydın, <span style="color:#00ff88; font-weight:600;">FurkqntÜcretsiz!</span></h2>
+                <p style="color:#555; font-size:13px; margin-top: 5px;">Kontrol paneline hoş geldin. Bir işlem seçerek başla.</p>
+                
+                <div class="status-grid">
+                    <div class="stat-box"><span>Abonelik</span><strong>FREE TIER</strong></div>
+                    <div class="stat-box"><span>Sunucu Durumu</span><strong style="color:#00ff88;">ONLINE</strong></div>
                 </div>
             </div>
         </div>
 
-        <div id="id-page" class="page" style="display:none;">
-            <div class="card">
-                <h3 style="margin-bottom:25px; color:var(--neon)">AD SOYAD SORGULAMA</h3>
-                <div class="input-box"><label>İSİM</label><input type="text" placeholder="Ad girin..."></div>
-                <div class="input-box"><label>SOYİSİM</label><input type="text" placeholder="Soyad girin..."></div>
-                <div class="input-box"><label>ŞEHİR</label><input type="text" placeholder="Örn: İstanbul"></div>
-                <button class="btn" onclick="startQuery()">SORGULAMAYI BAŞLAT</button>
+        <div id="id-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">Ad Soyad Sorgu</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <div class="input-group">
+                        <label>İsim</label>
+                        <input type="text" placeholder="Ad" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Soyisim</label>
+                        <input type="text" placeholder="Soyad" required>
+                    </div>
+                    <div class="input-group">
+                        <label>İl (Opsiyonel)</label>
+                        <input type="text" placeholder="Şehir">
+                    </div>
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
             </div>
         </div>
 
-        <div id="gsm-page" class="page" style="display:none;">
-            <div class="card">
-                <h3 style="margin-bottom:25px; color:var(--neon)">GSM SORGULAMA</h3>
-                <div class="input-box"><label>TELEFON NUMARASI</label><input type="number" placeholder="5XXXXXXXXX"></div>
-                <button class="btn" onclick="startQuery()">SORGULAMAYI BAŞLAT</button>
+        <div id="gsm-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">GSM Sorgu</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <div class="input-group">
+                        <label>Telefon Numarası</label>
+                        <input type="text" placeholder="5XX XXX XX XX" required>
+                    </div>
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
             </div>
         </div>
 
-        <div id="ip-page" class="page" style="display:none;">
-            <div class="card">
-                <h3 style="margin-bottom:25px; color:var(--neon)">IP LOKASYON ANALİZİ</h3>
-                <div class="input-box"><label>HEDEF IP ADRESİ</label><input type="text" placeholder="192.168.x.x"></div>
-                <button class="btn" onclick="startQuery()">ANALİZİ BAŞLAT</button>
+        <div id="loc-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">Adres Sorgu</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <div class="input-group">
+                        <label>Kimlik / İsim</label>
+                        <input type="text" placeholder="TC No veya Ad Soyad" required>
+                    </div>
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
             </div>
         </div>
-    </div>
 
-    <div id="terminal">
-        <div class="term-box">
-            <div id="term-content" class="term-log"></div>
-            <button id="close-term" class="btn" style="display:none;" onclick="hideTerm()">BACK TO PANEL</button>
-        </div>
     </div>
 
     <script>
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        function openMenu() {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
+        // Menü Aç/Kapat
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
         }
-
-        function closeMenu() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
+        
+        // Alt Menüleri Aç/Kapat
         function toggleSub(id) {
-            const sub = document.getElementById(id);
-            const isOpen = sub.classList.contains('open');
-            document.querySelectorAll('.sub-menu').forEach(m => m.classList.remove('open'));
-            if(!isOpen) sub.classList.add('open');
+            let el = document.getElementById(id);
+            if(el.classList.contains('open')){
+                el.classList.remove('open');
+            } else {
+                // Diğerlerini kapat
+                document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('open'));
+                el.classList.add('open');
+            }
         }
 
+        document.getElementById('overlay').onclick = toggleMenu;
+
+        // Sayfalar arası geçiş
         function show(id) {
-            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            closeMenu();
+            document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            // Menüyü kapat (Mobilde)
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
         }
 
-        function startQuery() {
-            const term = document.getElementById('terminal');
-            const content = document.getElementById('term-content');
-            const btn = document.getElementById('close-term');
+        // ÜCRETSİZ ARAÇLAR (DATABASE BULUNAMADI)
+        function doFakeQuery(event) {
+            event.preventDefault(); 
             
-            term.style.display = 'flex';
+            let screen = document.getElementById('result-screen');
+            let loader = document.getElementById('loader');
+            let title = document.getElementById('res-title');
+            let text = document.getElementById('res-text');
+            let btn = document.getElementById('res-btn');
+
+            screen.style.display = 'flex';
+            loader.style.display = 'block';
             btn.style.display = 'none';
-            content.innerHTML = "root@furkqnt_kanistay:~$ ssh_connect tunnel_v4...<br>";
-            
-            setTimeout(() => { content.innerHTML += "> Accessing Mernis Secured Database...<br>"; }, 600);
-            setTimeout(() => { content.innerHTML += "> Scanning sectors 0-4096...<br>"; }, 1200);
-            setTimeout(() => { 
-                content.innerHTML += "<br><span class='term-err'>[ERROR] DATABASE NOT FOUND.</span><br>Kayıtlı veri bulunamadı."; 
+            title.innerText = "SORGULANIYOR";
+            text.innerText = "Veritabanı üzerinde taranıyor, lütfen bekleyin...";
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                title.innerText = "HATA";
+                title.style.color = "var(--error)";
+                text.innerText = "Girilen bilgilere ait eşleşen bir veri bulunamadı.";
                 btn.style.display = 'block';
-            }, 2500);
+            }, 2000); // 2 saniye yükleniyor ekranı
         }
 
-        function premium(name) {
-            closeMenu();
-            const term = document.getElementById('terminal');
-            const content = document.getElementById('term-content');
-            const btn = document.getElementById('close-term');
-            
-            term.style.display = 'flex';
+        // PREMIUM İŞLEMLER (ERİŞİM REDDEDİLDİ)
+        function runOp(name) {
+            toggleMenu();
+            let screen = document.getElementById('result-screen');
+            let loader = document.getElementById('loader');
+            let title = document.getElementById('res-title');
+            let text = document.getElementById('res-text');
+            let btn = document.getElementById('res-btn');
+
+            screen.style.display = 'flex';
+            loader.style.display = 'block';
             btn.style.display = 'none';
-            content.innerHTML = `root@furkqnt_kanistay:~$ initialize ${name}...<br>`;
-            
-            setTimeout(() => { 
-                content.innerHTML += "<br><span class='term-err'>[CRITICAL] ACCESS DENIED!</span><br>Bu modül sadece PREMIUM kullanıcılar içindir."; 
+            title.innerText = "İŞLEM: " + name.toUpperCase();
+            title.style.color = "#fff";
+            text.innerText = "Yetkileriniz doğrulanıyor...";
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                title.innerText = "ERİŞİM REDDEDİLDİ";
+                title.style.color = "var(--error)";
+                text.innerText = "Bu modülü kullanabilmek için 'Premium' statüsünde olmanız gerekmektedir.";
                 btn.style.display = 'block';
-            }, 1000);
+            }, 1500);
         }
 
-        function hideTerm() {
-            document.getElementById('terminal').style.display = 'none';
+        function closeRes() {
+            document.getElementById('result-screen').style.display = 'none';
+            document.querySelectorAll('form').forEach(f => f.reset());
         }
     </script>
 </body>
