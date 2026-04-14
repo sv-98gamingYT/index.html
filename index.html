@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furkqnt x Whsky </title>
+    <title>Furkqnt x Whsky</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;600;800&display=swap');
 
@@ -67,14 +67,35 @@
         .submenu.open { display: block; animation: fadeIn 0.3s; }
         .sub-link { 
             padding: 10px 15px; color: #777; font-size: 12px; display: block; 
-            text-decoration: none; transition: 0.2s; border-left: 1px solid #222;
+            text-decoration: none; transition: 0.2s; border-left: 1px solid #222; cursor: pointer;
         }
         .sub-link:hover { color: var(--neon); border-left: 1px solid var(--neon); padding-left: 20px; }
 
-        /* MAIN CONTENT */
+        /* MAIN CONTENT & PANELS */
         .main-content { padding: 40px 20px; max-width: 650px; margin: 0 auto; }
+        
+        .panel-view { display: none; }
+        .panel-view.active { display: block; animation: viewSlide 0.5s ease; }
+        
         .prime-card { background: var(--glass); border: 1px solid var(--border); border-radius: 30px; padding: 40px; margin-bottom: 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; }
         .prime-card::before { content: ""; position: absolute; top: -1px; left: 50px; right: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--neon), transparent); }
+
+        .view-title { font-family: 'Orbitron', sans-serif; font-size: 18px; color: #fff; margin-bottom: 30px; border-left: 4px solid var(--neon); padding-left: 20px; letter-spacing: 2px; }
+
+        /* FORMLAR */
+        input {
+            background: #000; border: 1px solid #222; color: #fff; padding: 20px;
+            border-radius: 18px; margin-bottom: 15px; width: 100%; box-sizing: border-box;
+            outline: none; font-size: 15px; transition: 0.4s; font-family: 'Inter', sans-serif;
+        }
+        input:focus { border-color: var(--neon); box-shadow: 0 0 20px var(--neon-dim); }
+
+        .action-button {
+            background: var(--neon); border: none; padding: 20px; color: #000;
+            border-radius: 18px; width: 100%; font-weight: 900; font-size: 15px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 3px; transition: 0.4s; margin-top: 10px;
+        }
+        .action-button:hover { box-shadow: 0 0 40px var(--neon); transform: translateY(-3px); }
 
         .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .status-box { background: #080808; padding: 20px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
@@ -88,7 +109,7 @@
         
         .loader { border: 3px solid #111; border-top: 3px solid var(--neon); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes viewSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 1500; backdrop-filter: blur(8px); }
         .overlay.active { display: block; }
@@ -103,7 +124,7 @@
             <div class="loader" id="loader"></div>
             <h3 id="res-title" style="color:var(--neon); font-family:'Orbitron';">BAĞLANTI KURULUYOR</h3>
             <p id="res-text" style="color:#555; font-size:13px;">Veri tüneli üzerinden istek gönderiliyor...</p>
-            <button onclick="closeRes()" id="res-btn" style="display:none; background:none; border:1px solid var(--neon); color:var(--neon); padding:12px; border-radius:10px; width:100%; cursor:pointer; margin-top:20px;">Terminale Dön</button>
+            <button onclick="closeRes()" id="res-btn" style="display:none; background:none; border:1px solid var(--neon); color:var(--neon); padding:12px; border-radius:10px; width:100%; cursor:pointer; margin-top:20px; font-weight:bold;">Terminale Dön</button>
         </div>
     </div>
 
@@ -114,65 +135,128 @@
         </div>
 
         <div class="section-label">ANA MENÜ</div>
-        <div class="nav-btn" onclick="location.reload()">Ana Sayfa</div>
+        <div class="nav-btn" onclick="showPanel('dash')">Ana Sayfa</div>
 
         <div class="section-label">ÜCRETSİZ ÇÖZÜMLER</div>
         <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-mermis')">Mernis 2026 <i>▼</i></div>
-            <div class="submenu" id="m-mermis">
-                <a class="sub-link" onclick="runOp('Ad Soyad Sorgu')">Ad Soyad Sorgu</a>
-                <a class="sub-link" onclick="runOp('TC Sorgu')">TC'den Bilgi Sorgu</a>
+            <div class="nav-btn" onclick="toggleSub('m-mermis')">Sorgu Araçları <i>▼</i></div>
+            <div class="submenu" id="m-mermis" style="display:block;">
+                <a class="sub-link" onclick="showPanel('id-serv')">Ad Soyad Sorgu</a>
+                <a class="sub-link" onclick="showPanel('gsm-serv')">GSM Sorgu</a>
+                <a class="sub-link" onclick="showPanel('loc-serv')">Adres Sorgu</a>
+                <a class="sub-link" onclick="showPanel('ip-serv')">IP Sorgu</a>
             </div>
         </div>
 
         <div class="section-label">PREMIUM ÇÖZÜMLER</div>
         
         <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-edevlet')">E-Devlet İşlemleri <i>▼</i></div>
-            <div class="submenu" id="m-edevlet">
-                <a class="sub-link" onclick="runOp('E-İmza Sorgu')">E-İmza Sorgu</a>
-                <a class="sub-link" onclick="runOp('E-Devlet Giriş')">E-Devlet Giriş (Sızma)</a>
-                <a class="sub-link" onclick="runOp('Pasaport Bilgileri')">Pasaport Bilgileri</a>
-                <a class="sub-link" onclick="runOp('İkametgah Sorgu')">QR Kodlu İkametgah</a>
+            <div class="nav-btn" onclick="toggleSub('m-ig')">Instagram Çözümleri <i>▼</i></div>
+            <div class="submenu" id="m-ig">
+                <a class="sub-link" onclick="runPremiumOp('Gizli Profil Görüntüle')">Gizli Profil Görüntüle</a>
+                <a class="sub-link" onclick="runPremiumOp('Instagram Sızma')">Instagram Sızma</a>
+                <a class="sub-link" onclick="runPremiumOp('DM Mesaj Takibi')">DM Mesaj Takibi</a>
+                <a class="sub-link" onclick="runPremiumOp('Gizli Hikaye İzlenme')">Gizli Hikaye İzlenme</a>
+                <a class="sub-link" onclick="runPremiumOp('Şifresiz Takipçi Paneli')">Şifresiz Takipçi Paneli</a>
             </div>
         </div>
 
         <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-polnet')">POLNET <i>▼</i></div>
-            <div class="submenu" id="m-polnet">
-                <a class="sub-link" onclick="runOp('Sicil Sorgu')">Sicil Sorgu</a>
-                <a class="sub-link" onclick="runOp('Gözaltı Sorgu')">Gözaltı Sorgu</a>
-                <a class="sub-link" onclick="runOp('Dava Sorgu')">Dava Sorgu</a>
-                <a class="sub-link" onclick="runOp('İcra Sorgu')">İcra Sorgu</a>
+            <div class="nav-btn" onclick="toggleSub('m-edevlet')">E-Devlet İşlemleri <i>▼</i></div>
+            <div class="submenu" id="m-edevlet">
+                <a class="sub-link" onclick="runPremiumOp('E-İmza Sorgu')">E-İmza Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('E-Devlet Giriş')">E-Devlet Giriş</a>
+                <a class="sub-link" onclick="runPremiumOp('Kişiye Ait İmza')">Kişiye Ait İmza</a>
+                <a class="sub-link" onclick="runPremiumOp('E-Devlet Vesika')">E-Devlet Vesika</a>
+                <a class="sub-link" onclick="runPremiumOp('Pasaport Bilgileri')">Pasaport Bilgileri</a>
+                <a class="sub-link" onclick="runPremiumOp('QR Kodlu İkametgah')">QR Kodlu İkametgah</a>
+                <a class="sub-link" onclick="runPremiumOp('Adına Kayıtlı GSM')">Adına Kayıtlı GSM</a>
+                <a class="sub-link" onclick="runPremiumOp('Enabiz Takip')">Enabiz Takip</a>
             </div>
         </div>
 
         <div class="nav-item">
             <div class="nav-btn" onclick="toggleSub('m-tel')">Telefon İşlemleri <i>▼</i></div>
             <div class="submenu" id="m-tel">
-                <a class="sub-link" onclick="runOp('Telefon Sorgu')">Telefon Sorgu</a>
-                <a class="sub-link" onclick="runOp('Anlık Konum')">Anlık Konum Sorgu</a>
-                <a class="sub-link" onclick="runOp('Fatura Dökümü')">Fatura Detay Dökümü</a>
-                <a class="sub-link" onclick="runOp('İnternet Trafiği')">İnternet Trafiği</a>
+                <a class="sub-link" onclick="runPremiumOp('Telefon Sorgu')">Telefon Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('IMEI Sorgu')">IMEI Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Anlık Konum Sorgu')">Anlık Konum Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Fatura Detay Dökümü')">Fatura Detay Dökümü</a>
+                <a class="sub-link" onclick="runPremiumOp('Arama Kayıtları')">Arama Kayıtları</a>
+                <a class="sub-link" onclick="runPremiumOp('İnternet Trafiği')">İnternet Trafiği</a>
+                <a class="sub-link" onclick="runPremiumOp('Gizli Numara Sorgu')">Gizli Numara Sorgu</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-polnet')">POLNET <i>▼</i></div>
+            <div class="submenu" id="m-polnet">
+                <a class="sub-link" onclick="runPremiumOp('Sicil Sorgu')">Sicil Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Kom Arşiv Sorgu')">Kom Arşiv Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Tem Arşiv Sorgu')">Tem Arşiv Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Gözaltı Sorgu')">Gözaltı Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Kişi Karıştığı Olaylar')">Kişi Karıştığı Olaylar</a>
+                <a class="sub-link" onclick="runPremiumOp('Şahıs Adli İşlemleri')">Şahıs Adli İşlemleri</a>
+                <a class="sub-link" onclick="runPremiumOp('Adli Evrak Sorgu')">Adli Evrak Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('Dava Sorgu')">Dava Sorgu</a>
+                <a class="sub-link" onclick="runPremiumOp('İcra Sorgu')">İcra Sorgu</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-wp')">WhatsApp Çözümleri <i>▼</i></div>
+            <div class="submenu" id="m-wp">
+                <a class="sub-link" onclick="runPremiumOp('WhatsApp Sızma')">WhatsApp Mesaj Okuma</a>
+                <a class="sub-link" onclick="runPremiumOp('Medya Çekimi')">Gelen/Giden Medya</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-gps')">Canlı Takip & GPS <i>▼</i></div>
+            <div class="submenu" id="m-gps">
+                <a class="sub-link" onclick="runPremiumOp('Anlık Sinyal Takibi')">Anlık Sinyal Takibi</a>
+                <a class="sub-link" onclick="runPremiumOp('Rota Geçmişi')">Geçmiş Rota İzleri</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-galeri')">Medya & Galeri <i>▼</i></div>
+            <div class="submenu" id="m-galeri">
+                <a class="sub-link" onclick="runPremiumOp('Galeri Sızma (Android)')">Galeri Sızma (Android)</a>
+                <a class="sub-link" onclick="runPremiumOp('Silinen Fotoğrafları Kurtar')">Silinen Fotoğrafları Kurtar</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-seyehat')">Konaklama & Seyahat <i>▼</i></div>
+            <div class="submenu" id="m-seyehat">
+                <a class="sub-link" onclick="runPremiumOp('Otel Kayıtları')">Otel & Pansiyon Kayıtları</a>
+                <a class="sub-link" onclick="runPremiumOp('Uçuş & Bilet Bilgileri')">Uçuş & Bilet Bilgileri</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-finans')">Finans & Banka <i>▼</i></div>
+            <div class="submenu" id="m-finans">
+                <a class="sub-link" onclick="runPremiumOp('Banka Hesap Dökümleri')">Banka Hesap Dökümleri</a>
+                <a class="sub-link" onclick="runPremiumOp('Kredi Kartı İşlemleri')">Kredi Kartı İşlemleri</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-arsiv')">Gelişmiş Arşiv <i>▼</i></div>
+            <div class="submenu" id="m-arsiv">
+                <a class="sub-link" onclick="runPremiumOp('Sızdırılmış Veri Taraması')">Sızdırılmış Veri Taraması</a>
+                <a class="sub-link" onclick="runPremiumOp('Derin Ağ (Deep Web) Taraması')">Derin Ağ Taraması</a>
             </div>
         </div>
 
         <div class="nav-item">
             <div class="nav-btn" onclick="toggleSub('m-rat')">Cihaz Kontrol (RAT) <i>▼</i></div>
             <div class="submenu" id="m-rat">
-                <a class="sub-link" onclick="runOp('Mikrofon Dinleme')">Mikrofon Dinleme</a>
-                <a class="sub-link" onclick="runOp('Dosya Erişimi')">Dosya Yöneticisi Erişimi</a>
-                <a class="sub-link" onclick="runOp('Kamera Erişimi')">Anlık Kamera Görüntüsü</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-ig')">Instagram Çözümleri <i>▼</i></div>
-            <div class="submenu" id="m-ig">
-                <a class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil Görüntüle</a>
-                <a class="sub-link" onclick="runOp('Instagram Sızma')">Instagram Sızma</a>
-                <a class="sub-link" onclick="runOp('DM Takip')">DM Mesaj Takibi</a>
-                <a class="sub-link" onclick="runOp('Şifresiz Takipçi')">Şifresiz Takipçi Paneli</a>
+                <a class="sub-link" onclick="runPremiumOp('Mikrofon Dinleme')">Mikrofon Dinleme</a>
+                <a class="sub-link" onclick="runPremiumOp('Dosya Yöneticisi Erişimi')">Dosya Yöneticisi Erişimi</a>
+                <a class="sub-link" onclick="runPremiumOp('Kamera Erişimi')">Anlık Kamera Görüntüsü</a>
             </div>
         </div>
     </div>
@@ -184,37 +268,95 @@
     </header>
 
     <div class="main-content">
-        <div class="prime-card">
-            <h2 style="font-family:'Orbitron'; font-size:16px; color:#fff;">Tünaydın, <span style="color:var(--neon);">KuzeyÜcretsiz!</span></h2>
-            <p style="color:#555; font-size:12px;">Premium Panel kontrol merkezine hoş geldin. Tüm sistemler aktif ve stabil.</p>
-            
-            <div class="status-grid">
-                <div class="status-box"><span>ABONELİK</span><strong>PASİF</strong></div>
-                <div class="status-box"><span>BİTİŞ</span><strong>YOK</strong></div>
-                <div class="status-box"><span>SİSTEM</span><strong class="text-online">ONLINE</strong></div>
-                <div class="status-box"><span>PING</span><strong id="ping">14ms</strong></div>
+        <div id="dash" class="panel-view active">
+            <div class="prime-card">
+                <h2 style="font-family:'Orbitron'; font-size:16px; color:#fff;">Tünaydın, <span style="color:var(--neon);">FurkqntÜcretsiz!</span></h2>
+                <p style="color:#555; font-size:12px;">Premium Panel kontrol merkezine hoş geldin. Tüm sistemler aktif ve stabil.</p>
+                
+                <div class="status-grid">
+                    <div class="status-box"><span>ABONELİK</span><strong>PASİF</strong></div>
+                    <div class="status-box"><span>BİTİŞ</span><strong>YOK</strong></div>
+                    <div class="status-box"><span>SİSTEM</span><strong class="text-online">ONLINE</strong></div>
+                    <div class="status-box"><span>PING</span><strong id="ping">14ms</strong></div>
+                </div>
+            </div>
+            <div class="prime-card" style="text-align:center; border-style:dashed;">
+                <p style="color:#444; font-size:11px; margin:0;">Sol menüden bir alternatif seçerek başlayın.</p>
             </div>
         </div>
 
-        <div class="prime-card" style="text-align:center; border-style:dashed;">
-            <p style="color:#444; font-size:11px; margin:0;">Sol menüden bir alternatif seçerek başlayın.</p>
+        <div id="id-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">Ad Soyad İstihbarat</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <input type="text" placeholder="Ad" required>
+                    <input type="text" placeholder="Soy Ad" required>
+                    <input type="text" placeholder="İl">
+                    <input type="text" placeholder="İlçe">
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
+            </div>
         </div>
+
+        <div id="gsm-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">GSM Operatör Sorgu</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <input type="text" placeholder="Telefon Numarası (Örn: 5551234567)" required>
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="loc-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">Adres Bilgisi Sorgu</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <input type="text" placeholder="T.C. Kimlik No veya İsim" required>
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="ip-serv" class="panel-view">
+            <div class="prime-card">
+                <div class="view-title">IP Lokasyon Analizi</div>
+                <form onsubmit="doFakeQuery(event)">
+                    <input type="text" placeholder="Hedef IP Adresi (Örn: 192.168.1.1)" required>
+                    <button type="submit" class="action-button">Sorgula</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
     <script>
+        // Menü Aç/Kapat
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
         }
         
+        // Alt Menüleri Aç/Kapat
         function toggleSub(id) {
             document.getElementById(id).classList.toggle('open');
         }
 
         document.getElementById('overlay').onclick = toggleMenu;
 
-        function runOp(name) {
-            toggleMenu();
+        // Sayfalar arası geçiş (Dashboard, Ad Soyad, GSM vs.)
+        function showPanel(id) {
+            document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            // Menüyü kapat
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        // ÜCRETSİZ FORMLAR İÇİN SAHTE VERİ TABANI SORGUSU
+        function doFakeQuery(event) {
+            event.preventDefault(); 
+            
             let screen = document.getElementById('result-screen');
             let loader = document.getElementById('loader');
             let title = document.getElementById('res-title');
@@ -224,25 +366,4 @@
             screen.style.display = 'flex';
             loader.style.display = 'block';
             btn.style.display = 'none';
-            title.innerText = name.toUpperCase() + "...";
-            text.innerText = "Hedef protokoller taranıyor, sızma işlemi başlatılamadı. DATABASE YOK!";
-
-            setTimeout(() => {
-                loader.style.display = 'none';
-                title.innerText = "ERİŞİM REDDEDİLDİ";
-                text.innerText = "Bu işlem için 'V.I.P' veya 'PREMIUM' yetkisine sahip olmanız gerekmektedir.";
-                btn.style.display = 'block';
-            }, 2500);
-        }
-
-        function closeRes() {
-            document.getElementById('result-screen').style.display = 'none';
-        }
-
-        setInterval(() => {
-            document.getElementById('ping').innerText = Math.floor(Math.random() * 15 + 5) + "ms";
-        }, 3000);
-    </script>
-</body>
-                    </html>
-                                                                                
+            title.innerText = "SORGULANI
