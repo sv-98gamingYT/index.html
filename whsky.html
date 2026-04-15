@@ -2,203 +2,207 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furkqnt x Whsky </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FURKQNT x KANISTAY | ULTIMATE ELITE v7</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
 
         :root {
-            --neon: #00f2ff;
-            --neon-dim: rgba(0, 242, 255, 0.15);
-            --bg: #020202;
-            --glass: rgba(15, 15, 15, 0.85);
+            --gold: #d4af37;
+            --bg: #050505;
+            --card: #0d0d0d;
             --border: #1a1a1a;
             --text: #ffffff;
-            --premium: #ffd700;
+            --subtext: #888888;
+            --error: #ff3b30;
+            --success: #00ff88;
         }
 
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            background-image: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #020202 100%);
-            overflow-x: hidden;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
 
         /* HEADER */
         .header { 
-            height: 75px; background: rgba(0,0,0,0.9); display: flex; 
-            align-items: center; justify-content: space-between; padding: 0 30px; 
-            border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 1000;
+            height: 70px; background: rgba(5, 5, 5, 0.85); display: flex; 
+            align-items: center; justify-content: space-between; padding: 0 25px; 
+            border-bottom: 1px solid var(--border); position: fixed; top: 0; width: 100%; z-index: 1000;
             backdrop-filter: blur(20px);
         }
+        .brand { font-weight: 800; font-size: 16px; letter-spacing: 1px; text-transform: uppercase; }
+        .brand span { color: var(--gold); }
+        .menu-btn { background: var(--card); border: 1px solid var(--border); color: #fff; width: 45px; height: 45px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .brand-text { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 22px; letter-spacing: 6px; color: #fff; text-shadow: 0 0 15px var(--neon); }
-        .menu-trigger { cursor: pointer; padding: 10px 20px; border: 1px solid var(--neon); color: var(--neon); font-weight: 800; font-size: 11px; letter-spacing: 2px; border-radius: 4px; transition: 0.3s; }
-        .menu-trigger:hover { background: var(--neon); color: #000; box-shadow: 0 0 20px var(--neon); }
-
-        /* SIDEBAR (YAN MENÜ) */
-        .sidebar { 
-            position: fixed; top: 0; left: -350px; width: 320px; height: 100%; 
-            background: rgba(5,5,5,0.98); z-index: 2000; transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-            padding: 30px 20px; border-right: 1px solid var(--neon); overflow-y: auto;
-        }
+        /* SIDEBAR */
+        .sidebar { position: fixed; top: 0; left: -100%; width: 310px; height: 100%; background: var(--bg); z-index: 2001; transition: 0.5s cubic-bezier(0.8, 0, 0.2, 1); padding: 30px 15px; border-right: 1px solid var(--border); overflow-y: auto; }
         .sidebar.active { left: 0; }
-        
-        .admin-profile { text-align: center; margin-bottom: 30px; padding: 20px; border: 1px solid var(--premium); border-radius: 20px; }
-        .admin-profile h2 { margin: 0; font-size: 18px; color: var(--premium); font-family: 'Orbitron'; }
-        .admin-profile span { font-size: 10px; color: #555; letter-spacing: 2px; }
-
-        .section-label { font-size: 10px; color: #444; font-weight: 900; letter-spacing: 3px; margin: 25px 0 10px 5px; text-transform: uppercase; }
-        
-        /* Dropdown Menü Stili */
-        .nav-item { margin-bottom: 5px; }
-        .nav-btn { 
-            padding: 14px 18px; color: #ccc; text-decoration: none; display: flex; 
-            justify-content: space-between; align-items: center;
-            font-size: 13px; font-weight: 600; border-radius: 10px; transition: 0.3s; cursor: pointer;
-            background: rgba(255,255,255,0.02);
-        }
-        .nav-btn:hover { background: var(--neon-dim); color: var(--neon); }
-        .nav-btn i { font-size: 10px; transition: 0.3s; }
-
-        .submenu { display: none; padding-left: 15px; margin-top: 5px; }
-        .submenu.open { display: block; animation: fadeIn 0.3s; }
-        .sub-link { 
-            padding: 10px 15px; color: #777; font-size: 12px; display: block; 
-            text-decoration: none; transition: 0.2s; border-left: 1px solid #222;
-        }
-        .sub-link:hover { color: var(--neon); border-left: 1px solid var(--neon); padding-left: 20px; }
-
-        /* MAIN CONTENT */
-        .main-content { padding: 40px 20px; max-width: 650px; margin: 0 auto; }
-        .prime-card { background: var(--glass); border: 1px solid var(--border); border-radius: 30px; padding: 40px; margin-bottom: 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; }
-        .prime-card::before { content: ""; position: absolute; top: -1px; left: 50px; right: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--neon), transparent); }
-
-        .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .status-box { background: #080808; padding: 20px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        .status-box span { display: block; font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 5px; }
-        .status-box strong { color: #fff; font-family: 'Orbitron'; font-size: 14px; }
-        .text-online { color: #00ff88 !important; }
-
-        /* MODAL / RESULT */
-        #result-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .result-box { border: 1px solid var(--border); padding: 40px; border-radius: 30px; background: #050505; text-align: center; max-width: 400px; width: 85%; }
-        
-        .loader { border: 3px solid #111; border-top: 3px solid var(--neon); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 1500; backdrop-filter: blur(8px); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 2000; backdrop-filter: blur(5px); }
         .overlay.active { display: block; }
+
+        /* NAV ELEMENTS */
+        .nav-label { font-size: 10px; color: var(--gold); font-weight: 800; letter-spacing: 2px; margin: 25px 0 10px 10px; text-transform: uppercase; }
+        .nav-btn { display: flex; align-items: center; justify-content: space-between; padding: 14px; color: var(--subtext); font-size: 14px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s; text-decoration: none; }
+        .nav-btn:hover { background: var(--card); color: #fff; }
+        .nav-btn i.main-icon { margin-right: 12px; width: 20px; text-align: center; }
+        .submenu { display: none; padding-left: 15px; margin-top: 5px; border-left: 1px solid var(--border); margin-left: 20px; }
+        .submenu.open { display: block; animation: fadeIn 0.3s ease; }
+        .sub-link { padding: 10px; color: #666; font-size: 13px; cursor: pointer; display: block; transition: 0.2s; text-decoration: none; }
+        .sub-link:hover { color: var(--gold); transform: translateX(5px); }
+
+        /* CONTENT */
+        .container { padding: 100px 20px 40px; max-width: 800px; margin: 0 auto; }
+        .page { display: none; animation: slideUp 0.5s ease; }
+        .page.active { display: block; }
+
+        /* DASHBOARD */
+        .prime-card { background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 24px; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .prime-card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .stat-box { background: #080808; border: 1px solid var(--border); padding: 20px; border-radius: 20px; text-align: center; }
+        .stat-box strong { font-size: 18px; display: block; margin-top: 5px; }
+
+        /* FORMS */
+        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 12px; margin-bottom: 12px; font-family: inherit; }
+        .action-btn { width: 100%; background: #fff; color: #000; padding: 16px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .action-btn:hover { background: var(--gold); color: #fff; }
+
+        /* MARKET */
+        .price-row { display: flex; justify-content: space-between; align-items: center; padding: 18px; background: #080808; border: 1px solid var(--border); border-radius: 18px; margin-bottom: 10px; }
+        .price-row span { font-size: 14px; font-weight: 600; }
+        .price-row strong { color: var(--gold); font-size: 17px; }
+
+        /* MODAL */
+        #result-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .result-box { border: 1px solid var(--border); padding: 40px; border-radius: 24px; background: var(--card); text-align: center; max-width: 350px; width: 90%; }
+        .loader { border: 3px solid #111; border-top: 3px solid var(--gold); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
     <div id="result-screen">
         <div class="result-box">
             <div class="loader" id="loader"></div>
-            <h3 id="res-title" style="color:var(--neon); font-family:'Orbitron';">BAĞLANTI KURULUYOR</h3>
-            <p id="res-text" style="color:#555; font-size:13px;">Veri tüneli üzerinden istek gönderiliyor...</p>
-            <button onclick="closeRes()" id="res-btn" style="display:none; background:none; border:1px solid var(--neon); color:var(--neon); padding:12px; border-radius:10px; width:100%; cursor:pointer; margin-top:20px;">Terminale Dön</button>
-        </div>
-    </div>
-
-    <div class="sidebar" id="sidebar">
-        <div class="admin-profile">
-            <h2>FurkqntÜcretsiz</h2>
-            <span>Çevrimiçi • Lvl 1</span>
-        </div>
-
-        <div class="section-label">ANA MENÜ</div>
-        <div class="nav-btn" onclick="location.reload()">Ana Sayfa</div>
-
-        <div class="section-label">ÜCRETSİZ ÇÖZÜMLER</div>
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-mermis')">Mernis 2026 <i>▼</i></div>
-            <div class="submenu" id="m-mermis">
-                <a class="sub-link" onclick="runOp('Ad Soyad Sorgu')">Ad Soyad Sorgu</a>
-                <a class="sub-link" onclick="runOp('TC Sorgu')">TC'den Bilgi Sorgu</a>
-            </div>
-        </div>
-
-        <div class="section-label">PREMIUM ÇÖZÜMLER</div>
-        
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-edevlet')">E-Devlet İşlemleri <i>▼</i></div>
-            <div class="submenu" id="m-edevlet">
-                <a class="sub-link" onclick="runOp('E-İmza Sorgu')">E-İmza Sorgu</a>
-                <a class="sub-link" onclick="runOp('E-Devlet Giriş')">E-Devlet Giriş (Sızma)</a>
-                <a class="sub-link" onclick="runOp('Pasaport Bilgileri')">Pasaport Bilgileri</a>
-                <a class="sub-link" onclick="runOp('İkametgah Sorgu')">QR Kodlu İkametgah</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-polnet')">POLNET <i>▼</i></div>
-            <div class="submenu" id="m-polnet">
-                <a class="sub-link" onclick="runOp('Sicil Sorgu')">Sicil Sorgu</a>
-                <a class="sub-link" onclick="runOp('Gözaltı Sorgu')">Gözaltı Sorgu</a>
-                <a class="sub-link" onclick="runOp('Dava Sorgu')">Dava Sorgu</a>
-                <a class="sub-link" onclick="runOp('İcra Sorgu')">İcra Sorgu</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-tel')">Telefon İşlemleri <i>▼</i></div>
-            <div class="submenu" id="m-tel">
-                <a class="sub-link" onclick="runOp('Telefon Sorgu')">Telefon Sorgu</a>
-                <a class="sub-link" onclick="runOp('Anlık Konum')">Anlık Konum Sorgu</a>
-                <a class="sub-link" onclick="runOp('Fatura Dökümü')">Fatura Detay Dökümü</a>
-                <a class="sub-link" onclick="runOp('İnternet Trafiği')">İnternet Trafiği</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-rat')">Cihaz Kontrol (RAT) <i>▼</i></div>
-            <div class="submenu" id="m-rat">
-                <a class="sub-link" onclick="runOp('Mikrofon Dinleme')">Mikrofon Dinleme</a>
-                <a class="sub-link" onclick="runOp('Dosya Erişimi')">Dosya Yöneticisi Erişimi</a>
-                <a class="sub-link" onclick="runOp('Kamera Erişimi')">Anlık Kamera Görüntüsü</a>
-            </div>
-        </div>
-
-        <div class="nav-item">
-            <div class="nav-btn" onclick="toggleSub('m-ig')">Instagram Çözümleri <i>▼</i></div>
-            <div class="submenu" id="m-ig">
-                <a class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil Görüntüle</a>
-                <a class="sub-link" onclick="runOp('Instagram Sızma')">Instagram Sızma</a>
-                <a class="sub-link" onclick="runOp('DM Takip')">DM Mesaj Takibi</a>
-                <a class="sub-link" onclick="runOp('Şifresiz Takipçi')">Şifresiz Takipçi Paneli</a>
-            </div>
+            <h3 id="res-title">BAĞLANTI KURULUYOR</h3>
+            <p id="res-text" style="color:#555; font-size:13px; margin: 15px 0 25px;">Kritik veri tünelleri taranıyor...</p>
+            <button onclick="closeRes()" id="res-btn" style="display:none; background:none; border:1px solid #333; color:#fff; padding:12px; width:100%; border-radius:10px; cursor:pointer;">Kapat</button>
         </div>
     </div>
 
     <header class="header">
-        <div class="menu-trigger" onclick="toggleMenu()">MENU</div>
-        <div class="brand-text">FURKQNT</div>
-        <div style="width: 50px;"></div>
+        <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars-staggered"></i></button>
+        <div class="brand">FURKQNT<span>x</span>KANISTAY</div>
+        <div class="menu-btn"><i class="fa-solid fa-bolt" style="color:var(--gold)"></i></div>
     </header>
 
-    <div class="main-content">
-        <div class="prime-card">
-            <h2 style="font-family:'Orbitron'; font-size:16px; color:#fff;">Tünaydın, <span style="color:var(--neon);">KuzeyÜcretsiz!</span></h2>
-            <p style="color:#555; font-size:12px;">Premium Panel kontrol merkezine hoş geldin. Tüm sistemler aktif ve stabil.</p>
-            
-            <div class="status-grid">
-                <div class="status-box"><span>ABONELİK</span><strong>PASİF</strong></div>
-                <div class="status-box"><span>BİTİŞ</span><strong>YOK</strong></div>
-                <div class="status-box"><span>SİSTEM</span><strong class="text-online">ONLINE</strong></div>
-                <div class="status-box"><span>PING</span><strong id="ping">14ms</strong></div>
+    <div class="sidebar" id="sidebar">
+        <div style="text-align: center; margin-bottom: 25px; padding: 20px; background: rgba(212,175,55,0.05); border-radius: 20px;">
+            <h2 style="font-size: 18px;">ULTIMATE PANEL</h2>
+            <span style="color: var(--success); font-size: 10px; font-weight: 800; letter-spacing: 2px;">STATUS: ONLINE</span>
+        </div>
+
+        <div class="nav-btn" onclick="showPage('dash')"><i class="fa-solid fa-terminal main-icon"></i> Dashboard</div>
+
+        <div class="nav-label">MERNİS 2026 (ÜCRETSİZ)</div>
+        <div class="nav-btn" onclick="showPage('f-mernis')"><i class="fa-solid fa-user-secret main-icon"></i> Ad Soyad Sorgu</div>
+        <div class="nav-btn" onclick="showPage('f-gsm')"><i class="fa-solid fa-phone-volume main-icon"></i> GSM Sorgu</div>
+        <div class="nav-btn" onclick="showPage('f-adres')"><i class="fa-solid fa-map-location-dot main-icon"></i> Adres Sorgu</div>
+
+        <div class="nav-label">PREMIUM MODÜLLER</div>
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-ig')"><span style="color: #E1306C;"><i class="fa-brands fa-instagram main-icon"></i> Instagram Sızma</span> <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="m-ig">
+                <div class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil Görüntüle</div>
+                <div class="sub-link" onclick="runOp('IG Hesap Sızma')">Instagram Hesap Sızma</div>
             </div>
         </div>
 
-        <div class="prime-card" style="text-align:center; border-style:dashed;">
-            <p style="color:#444; font-size:11px; margin:0;">Sol menüden bir operasyon seçerek başlayın.</p>
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-medya')"><span style="color: #fbc531;"><i class="fa-solid fa-images main-icon"></i> Medya & Galeri</span> <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="m-medya">
+                <div class="sub-link" onclick="runOp('Galeri Sızma')">Galeri Sızma (Android/iOS)</div>
+                <div class="sub-link" onclick="runOp('Bulut Dosya Erişimi')">Bulut Dosya Erişimi</div>
+                <div class="sub-link" onclick="runOp('Silinen Medyalar')">Silinen Fotoğrafları Kurtar</div>
+            </div>
         </div>
+
+        <div class="nav-item">
+            <div class="nav-btn" onclick="toggleSub('m-polnet')"><span style="color: #ff3b30;"><i class="fa-solid fa-shield-halved main-icon"></i> POLNET VIP</span> <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="m-polnet">
+                <div class="sub-link" onclick="runOp('Sicil Sorgu')">GBT / Sicil Sorgu</div>
+                <div class="sub-link" onclick="runOp('Arşiv Kaydı')">KOM / TEM Arşiv</div>
+            </div>
+        </div>
+
+        <div class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-crown main-icon" style="color:var(--gold)"></i> Market / VIP Üyelik</div>
+    </div>
+
+    <div class="container">
+        
+        <div id="dash" class="page active">
+            <div class="prime-card">
+                <h2 style="font-size: 24px;">Furkqnt Hoş Geldin.</h2>
+                <p style="margin: 10px 0; color: var(--subtext);">Tüm sistemler aktif. Sızma ve sorgu modülleri stabil çalışıyor.</p>
+                
+                <div class="stat-grid">
+                    <div class="stat-box"><span>Aktif Bağlantılar</span><strong style="color:var(--gold)">4,829</strong></div>
+                    <div class="stat-box"><span>Sunucu Yükü</span><strong style="color:var(--success)">%14.2</strong></div>
+                </div>
+
+                <div style="background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 15px; font-size: 12px; text-align: center;">
+                    <strong>DUYURU:</strong> Yıllık VIP paketi Market'e özel fiyatla eklendi!
+                </div>
+            </div>
+        </div>
+
+        <div id="f-mernis" class="page">
+            <div class="prime-card">
+                <h3 style="margin-bottom:20px; color:var(--gold)">MERNİS 2026 | Ad Soyad Sorgu</h3>
+                <input type="text" placeholder="Ad">
+                <input type="text" placeholder="Soyad">
+                <input type="text" placeholder="İl">
+                <input type="text" placeholder="İlçe">
+                <button class="action-btn" onclick="fakeQuery()">Sorgulamayı Başlat</button>
+            </div>
+        </div>
+
+        <div id="f-gsm" class="page">
+            <div class="prime-card">
+                <h3 style="margin-bottom:20px; color:var(--gold)">GSM Sorgu</h3>
+                <input type="text" placeholder="Telefon Numarası (5xx...)">
+                <button class="action-btn" onclick="fakeQuery()">Sorgulamayı Başlat</button>
+            </div>
+        </div>
+
+        <div id="f-adres" class="page">
+            <div class="prime-card">
+                <h3 style="margin-bottom:20px; color:var(--gold)">Adres Sorgu</h3>
+                <input type="text" placeholder="Ad Soyad veya TC No">
+                <button class="action-btn" onclick="fakeQuery()">Sorgulamayı Başlat</button>
+            </div>
+        </div>
+
+        <div id="market" class="page">
+            <div class="prime-card">
+                <h3 style="margin-bottom:20px;">VIP Paketleri & Fiyatlandırma</h3>
+                <div class="price-row"><span>1 Günlük VIP</span><strong>300₺</strong></div>
+                <div class="price-row"><span>1 Haftalık VIP</span><strong>500₺</strong></div>
+                <div class="price-row" style="border-color:var(--gold); background: rgba(212,175,55,0.05);">
+                    <span>1 Yıllık VIP (ÖZEL)</span><strong>1800₺</strong>
+                </div>
+                <div class="price-row"><span>Ömür Boyu VIP</span><strong>2500₺</strong></div>
+                
+                <a href="https://www.instagram.com/furkqnte" style="text-decoration:none;">
+                    <button class="action-btn" style="background:var(--gold); margin-top:15px;">SATIN ALMAK İÇİN TIKLA</button>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -206,43 +210,55 @@
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
         }
-        
         function toggleSub(id) {
             document.getElementById(id).classList.toggle('open');
         }
-
-        document.getElementById('overlay').onclick = toggleMenu;
-
-        function runOp(name) {
-            toggleMenu();
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(window.innerWidth < 1000) toggleMenu();
+        }
+        function fakeQuery() {
             let screen = document.getElementById('result-screen');
             let loader = document.getElementById('loader');
             let title = document.getElementById('res-title');
             let text = document.getElementById('res-text');
             let btn = document.getElementById('res-btn');
-
             screen.style.display = 'flex';
             loader.style.display = 'block';
             btn.style.display = 'none';
-            title.innerText = name.toUpperCase() + "...";
-            text.innerText = "Hedef protokoller taranıyor, sızma işlemi başlatıldı.";
-
+            title.innerText = "SORGULANIYOR...";
+            title.style.color = "#fff";
+            text.innerText = "MERNİS 2026 veritabanı taranıyor...";
             setTimeout(() => {
                 loader.style.display = 'none';
-                title.innerText = "ERİŞİM REDDEDİLDİ";
-                text.innerText = "Bu işlem için 'V.I.P' veya 'PREMIUM' yetkisine sahip olmanız gerekmektedir.";
+                title.innerText = "VERİTABANINDA BULUNAMADI";
+                title.style.color = "var(--error)";
+                text.innerText = "Ücretsiz sorgulama limitine ulaşıldı veya veri bulunamadı. Lütfen Premium deneyin.";
                 btn.style.display = 'block';
             }, 2500);
         }
-
+        function runOp(name) {
+            let screen = document.getElementById('result-screen');
+            let loader = document.getElementById('loader');
+            let title = document.getElementById('res-title');
+            let text = document.getElementById('res-text');
+            let btn = document.getElementById('res-btn');
+            screen.style.display = 'flex';
+            loader.style.display = 'block';
+            btn.style.display = 'none';
+            title.innerText = "ERİŞİM REDDEDİLDİ";
+            title.style.color = "var(--error)";
+            text.innerText = name + " modülü sadece VIP üyeler içindir. Lütfen yetki satın alın.";
+            setTimeout(() => {
+                loader.style.display = 'none';
+                btn.style.display = 'block';
+            }, 1000);
+        }
         function closeRes() {
             document.getElementById('result-screen').style.display = 'none';
         }
-
-        setInterval(() => {
-            document.getElementById('ping').innerText = Math.floor(Math.random() * 15 + 5) + "ms";
-        }, 3000);
     </script>
 </body>
                     </html>
-                                                                                
+                    
