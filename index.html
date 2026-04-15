@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FURKQNT x KANISTAY 7</title>
+    <title>FURKQNT x KANISTAY | 7w </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
@@ -17,6 +17,7 @@
             --subtext: #888888;
             --error: #ff3b30;
             --success: #00ff88;
+            --wa: #25d366;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -24,7 +25,7 @@
 
         /* HEADER */
         .header { 
-            height: 70px; background: rgba(5, 5, 5, 0.9); display: flex; 
+            height: 70px; background: rgba(5, 5, 5, 0.95); display: flex; 
             align-items: center; justify-content: space-between; padding: 0 20px; 
             border-bottom: 1px solid var(--border); position: fixed; top: 0; width: 100%; z-index: 1000;
             backdrop-filter: blur(20px);
@@ -50,7 +51,7 @@
         .sub-link { padding: 8px 10px; color: #777; font-size: 13px; cursor: pointer; display: block; transition: 0.2s; text-decoration: none; }
         .sub-link:hover { color: var(--gold); transform: translateX(5px); }
 
-        /* DASHBOARD & CONTENT */
+        /* CONTENT */
         .container { padding: 90px 15px 40px; max-width: 600px; margin: 0 auto; }
         .page { display: none; animation: slideUp 0.4s ease-out; }
         .page.active { display: block; }
@@ -58,13 +59,13 @@
         .prime-card { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 20px; margin-bottom: 15px; position: relative; overflow: hidden; }
         .prime-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
         
-        /* FORM ELEMENTS */
+        /* FORMS */
         input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 14px; border-radius: 10px; margin-bottom: 10px; font-family: inherit; font-size: 14px; outline: none; transition: 0.3s; }
         input:focus { border-color: var(--gold); }
         .action-btn { width: 100%; background: #fff; color: #000; padding: 14px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 13px; }
         .action-btn:hover { background: var(--gold); color: #fff; }
 
-        /* RESULT MODAL */
+        /* MODAL */
         #result-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
         .result-box { border: 1px solid var(--border); padding: 30px; border-radius: 20px; background: var(--card); text-align: center; width: 100%; max-width: 320px; }
         .loader { border: 3px solid #111; border-top: 3px solid var(--gold); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
@@ -81,9 +82,9 @@
     <div id="result-screen">
         <div class="result-box">
             <div class="loader" id="loader"></div>
-            <h3 id="res-title" style="font-size: 16px; margin-bottom: 10px;">SORGULANIYOR</h3>
-            <p id="res-text" style="color:#666; font-size:12px; margin-bottom: 20px;">Mernis veritabanı taranıyor...</p>
-            <button onclick="closeRes()" id="res-btn" style="display:none; background:var(--border); color:#fff; padding:10px; width:100%; border-radius:8px; cursor:pointer; border:none;">Anladım</button>
+            <h3 id="res-title" style="font-size: 16px; margin-bottom: 10px;">İŞLEM YAPILIYOR</h3>
+            <p id="res-text" style="color:#666; font-size:12px; margin-bottom: 20px;">Veritabanı bağlantısı kuruluyor...</p>
+            <button onclick="closeRes()" id="res-btn" style="display:none; background:var(--border); color:#fff; padding:10px; width:100%; border-radius:8px; cursor:pointer; border:none;">Kapat</button>
         </div>
     </div>
 
@@ -96,7 +97,7 @@
     <div class="sidebar" id="sidebar">
         <div style="background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid var(--border);">
             <div style="font-size: 12px; font-weight: 800; color: #fff;">PREMIUM PANEL</div>
-            <div style="font-size: 9px; color: var(--success); margin-top: 5px;">● STATUS: ACTIVE</div>
+            <div style="font-size: 9px; color: var(--success); margin-top: 5px;">● STATUS: ENCRYPTED</div>
         </div>
 
         <div class="nav-btn" onclick="showPage('dash')"><i class="fa-solid fa-house main-icon"></i> Dashboard</div>
@@ -110,41 +111,47 @@
         </div>
 
         <div class="nav-section">
-            <div class="nav-label">PREMIUM MODÜLLER</div>
+            <div class="nav-label">MESAJLAŞMA & SIZMA</div>
             <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-ig')"><i class="fa-brands fa-instagram main-icon" style="color:#E1306C"></i> Instagram Çözümleri <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
-                <div class="submenu" id="sub-ig">
-                    <div class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil Görüntüle</div>
-                    <div class="sub-link" onclick="runOp('Instagram Sızma')">Instagram Sızma</div>
-                </div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-polnet')"><i class="fa-solid fa-shield-halved main-icon" style="color:#ff3b30"></i> POLNET <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
-                <div class="submenu" id="sub-polnet">
-                    <div class="sub-link" onclick="runOp('Sicil Sorgu')">Sicil Sorgu</div>
-                    <div class="sub-link" onclick="runOp('Gözaltı Sorgu')">Gözaltı Sorgu</div>
-                </div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-medya')"><i class="fa-solid fa-images main-icon" style="color:#FFCC00"></i> Medya & Galeri <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
-                <div class="submenu" id="sub-medya">
-                    <div class="sub-link" onclick="runOp('Galeri Sızma')">Galeri Sızma</div>
-                    <div class="sub-link" onclick="runOp('Silinenler')">Silinen Fotoğrafları Kurtar</div>
+                <div class="nav-btn" onclick="toggleSub('sub-wa')"><i class="fa-brands fa-whatsapp main-icon" style="color:var(--wa)"></i> WhatsApp Çözümleri <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
+                <div class="submenu" id="sub-wa">
+                    <div class="sub-link" onclick="runOp('WhatsApp Mesaj Takibi')">Anlık Mesaj Takibi</div>
+                    <div class="sub-link" onclick="runOp('WhatsApp Galeri')">WhatsApp Medya/Galeri</div>
+                    <div class="sub-link" onclick="runOp('Silinen Mesajlar')">Silinen Mesajları Oku</div>
+                    <div class="sub-link" onclick="runOp('Rehber Sızma')">Rehber ve Kişi Listesi</div>
                 </div>
             </div>
         </div>
 
-        <div class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-store main-icon" style="color:var(--gold)"></i> Market / VIP Üyelik</div>
+        <div class="nav-section">
+            <div class="nav-label">PREMIUM MODÜLLER</div>
+            <div class="nav-item">
+                <div class="nav-btn" onclick="toggleSub('sub-ig')"><i class="fa-brands fa-instagram main-icon" style="color:#E1306C"></i> Instagram İşlemleri <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
+                <div class="submenu" id="sub-ig">
+                    <div class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil Görüntüle</div>
+                    <div class="sub-link" onclick="runOp('Hesap Sızma')">Instagram Hesap Sızma</div>
+                </div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-btn" onclick="toggleSub('sub-polnet')"><i class="fa-solid fa-shield-halved main-icon" style="color:#ff3b30"></i> POLNET VIP <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
+                <div class="submenu" id="sub-polnet">
+                    <div class="sub-link" onclick="runOp('GBT Sorgu')">GBT / Sicil Sorgu</div>
+                    <div class="sub-link" onclick="runOp('Arşiv Kaydı')">KOM/TEM Arşiv Kaydı</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-crown main-icon" style="color:var(--gold)"></i> Market / VIP Satın Al</div>
     </div>
 
     <div class="container">
         
         <div id="dash" class="page active">
             <div class="prime-card">
-                <h2 style="font-size: 20px; margin-bottom: 10px;">Furkqnt Hoş Geldin.</h2>
-                <p style="font-size: 12px; color: var(--subtext);">Tüm sorgu ve sızma modülleri senkronize edildi. Mernis 2026 verileri günceldir.</p>
+                <h2 style="font-size: 20px;">Hoş Geldin, Furkqnt.</h2>
+                <p style="font-size: 12px; color: var(--subtext); margin-top: 5px;">Panel sızma modülleri ve WhatsApp entegrasyonu tamamlandı. Sorgu limitleri sıfırlandı.</p>
                 <div style="background: rgba(212,175,55,0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 12px; margin-top: 15px; font-size: 11px; text-align: center;">
-                    <strong>YILLIK VIP: 1800₺</strong> - Tüm kısıtlamaları kaldırın!
+                    <strong>YILLIK VIP AVANTAJI:</strong> Sadece 1800₺ ile tüm kısıtlamaları kaldırın.
                 </div>
             </div>
         </div>
@@ -163,37 +170,37 @@
         <div id="p-adres" class="page">
             <div class="prime-card">
                 <h3 style="margin-bottom:5px; color:var(--gold)">Adres Sorgu</h3>
-                <p style="font-size: 11px; color: var(--error); margin-bottom: 15px;">* Adres sorgusu için TC kimlik numarası şarttır.</p>
-                <input type="text" placeholder="TC Kimlik Numarası">
-                <button class="action-btn" onclick="fakeQuery()">Adres Getir</button>
+                <p style="font-size: 11px; color: var(--error); margin-bottom: 15px;">* Bu işlem için geçerli bir TC No gereklidir.</p>
+                <input type="text" placeholder="TC Kimlik No">
+                <button class="action-btn" onclick="fakeQuery()">Sorgula</button>
             </div>
         </div>
 
         <div id="p-tc" class="page">
             <div class="prime-card">
                 <h3 style="margin-bottom:15px; color:var(--gold)">TC Sorgu</h3>
-                <input type="text" placeholder="Tc Kimlik Numarası giriniz">
-                <button class="action-btn" onclick="fakeQuery()">TC No Sorgula</button>
+                <input type="text" placeholder="TC Kimlik No">
+                <button class="action-btn" onclick="fakeQuery()">Kişinin tüm bilgilerini getirir</button>
             </div>
         </div>
 
         <div id="p-gsm" class="page">
             <div class="prime-card">
                 <h3 style="margin-bottom:15px; color:var(--gold)">GSM Sorgu</h3>
-                <input type="text" placeholder="Telefon Numarası (5xx...)">
-                <button class="action-btn" onclick="fakeQuery()">Sorgula</button>
+                <input type="text" placeholder="Numara (5xx...)">
+                <button class="action-btn" onclick="fakeQuery()">Numarayı Sorgula</button>
             </div>
         </div>
 
         <div id="market" class="page">
             <div class="prime-card">
-                <h3 style="margin-bottom:15px;">Market / VIP</h3>
-                <div style="background:#080808; padding:15px; border-radius:12px; border:1px solid var(--border);">
-                    <p style="font-size:13px; margin-bottom:5px;">Yıllık VIP Paket</p>
-                    <strong style="color:var(--gold); font-size:18px;">1800₺</strong>
+                <h3 style="margin-bottom:20px;">VIP Paketleri</h3>
+                <div style="background:#080808; padding:18px; border-radius:15px; border:1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <span>Yıllık VIP (FULL)</span>
+                    <strong style="color:var(--gold); font-size: 20px;">1800₺</strong>
                 </div>
                 <a href="https://www.instagram.com/furkqnte" style="text-decoration:none;">
-                    <button class="action-btn" style="background:var(--gold); margin-top:10px;">SATIN AL</button>
+                    <button class="action-btn" style="background:var(--gold); margin-top:15px;">SATIN AL (INSTAGRAM)</button>
                 </a>
             </div>
         </div>
@@ -222,24 +229,38 @@
             screen.style.display = 'flex';
             loader.style.display = 'block';
             btn.style.display = 'none';
-            title.innerText = "ARANIYOR...";
+            title.innerText = "SORGULANIYOR...";
             title.style.color = "#fff";
-            text.innerText = "MERNİS 2026 tüneli üzerinden veriler çekiliyor...";
+            text.innerText = "Veri tüneli üzerinden sorgu işlemi başlatıldı...";
             setTimeout(() => {
                 loader.style.display = 'none';
-                title.innerText = "VERİ BULUNAMADI";
+                title.innerText = "SONUÇ BULUNAMADI";
                 title.style.color = "var(--error)";
-                text.innerText = "Veritabanında bu kişiye ait sonuç bulunamadı.";
+                text.innerText = "Mevcut veritabanında eşleşen kayıt yok.";
                 btn.style.display = 'block';
             }, 2500);
         }
         function runOp(name) {
-            alert(name + " modülü sadece VIP üyeler içindir.");
+            let screen = document.getElementById('result-screen');
+            let loader = document.getElementById('loader');
+            let title = document.getElementById('res-title');
+            let text = document.getElementById('res-text');
+            let btn = document.getElementById('res-btn');
+            screen.style.display = 'flex';
+            loader.style.display = 'block';
+            btn.style.display = 'none';
+            title.innerText = "ERİŞİM REDDEDİLDİ";
+            title.style.color = "var(--error)";
+            text.innerText = name + " modülü sadece VIP üyeler içindir.";
+            setTimeout(() => {
+                loader.style.display = 'none';
+                btn.style.display = 'block';
+            }, 1200);
         }
         function closeRes() {
             document.getElementById('result-screen').style.display = 'none';
         }
     </script>
 </body>
-    </html>
+                                                                       </html>
     
