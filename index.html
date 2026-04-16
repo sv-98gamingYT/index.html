@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FURKQNT 7 KANISTAY </title>
+    <title>FURKQNT x KANISTAY | MASTER PANEL v16</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
@@ -25,13 +25,9 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
 
-        /* --- ANIMASYONLAR --- */
         @keyframes glow { 0% { box-shadow: 0 0 5px rgba(212,175,55,0.2); } 50% { box-shadow: 0 0 20px rgba(212,175,55,0.4); } 100% { box-shadow: 0 0 5px rgba(212,175,55,0.2); } }
-        @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* --- HEADER --- */
         .header { 
             height: 75px; background: rgba(5, 5, 5, 0.98); display: flex; 
             align-items: center; justify-content: space-between; padding: 0 20px; 
@@ -43,16 +39,13 @@
         .menu-btn { 
             background: var(--card); border: 1px solid var(--border); color: #fff; 
             width: 45px; height: 45px; border-radius: 12px; cursor: pointer; 
-            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
         }
-        .menu-btn:active { transform: scale(0.9); border-color: var(--gold); }
 
-        /* --- SIDEBAR & OVERLAY --- */
         .sidebar { 
             position: fixed; top: 0; left: -100%; width: 310px; height: 100vh; 
             background: var(--bg); z-index: 3000; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
             padding: 25px 15px; border-right: 1px solid var(--border); overflow-y: auto;
-            box-shadow: 20px 0 60px rgba(0,0,0,1);
         }
         .sidebar.active { left: 0; }
         .overlay { 
@@ -61,7 +54,6 @@
         }
         .overlay.active { display: block; }
 
-        /* --- NAVIGATION --- */
         .nav-section { margin-bottom: 25px; }
         .nav-label { font-size: 10px; color: var(--gold); font-weight: 800; letter-spacing: 1.8px; margin: 15px 0 10px 10px; text-transform: uppercase; opacity: 0.7; }
         
@@ -76,13 +68,9 @@
 
         .submenu { display: none; padding-left: 15px; margin-top: 5px; border-left: 1px solid var(--border); margin-left: 25px; }
         .submenu.open { display: block; animation: fadeInUp 0.3s ease; }
-        .sub-link { 
-            padding: 10px 12px; color: #777; font-size: 13px; cursor: pointer; 
-            display: flex; align-items: center; border-radius: 8px; transition: 0.2s;
-        }
+        .sub-link { padding: 10px 12px; color: #777; font-size: 13px; cursor: pointer; display: flex; align-items: center; border-radius: 8px; transition: 0.2s; }
         .sub-link:hover { color: var(--gold); background: rgba(212,175,55,0.05); }
 
-        /* --- CONTENT AREA --- */
         .container { padding: 100px 15px 50px; max-width: 600px; margin: 0 auto; min-height: 100vh; }
         .page { display: none; }
         .page.active { display: block; animation: fadeInUp 0.5s ease-out; }
@@ -94,39 +82,24 @@
         }
         .prime-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
 
-        /* --- INPUTS & BUTTONS --- */
         .group { margin-bottom: 18px; }
         .group label { font-size: 11px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; font-weight: 800; }
-        input { 
-            width: 100%; background: #000; border: 1px solid var(--border); color: #fff; 
-            padding: 16px; border-radius: 14px; font-size: 14px; outline: none; transition: 0.3s;
-        }
-        input:focus { border-color: var(--gold); background: #050505; }
+        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 16px; border-radius: 14px; font-size: 14px; outline: none; }
+        input:focus { border-color: var(--gold); }
         
         .action-btn { 
             width: 100%; background: #fff; color: #000; padding: 18px; 
             border-radius: 14px; font-weight: 800; border: none; cursor: pointer; 
             text-transform: uppercase; font-size: 13px; transition: 0.4s;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.1);
         }
-        .action-btn:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+        .action-btn:hover { background: var(--gold); color: #fff; transform: translateY(-2px); }
 
-        /* --- MODAL --- */
         #result-screen { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; 
             justify-content: center; align-items: center; padding: 25px; backdrop-filter: blur(15px);
         }
-        .result-box { 
-            background: var(--card); border: 1px solid var(--border); 
-            padding: 40px; border-radius: 30px; text-align: center; width: 100%; max-width: 360px;
-            animation: glow 3s infinite;
-        }
-
-        /* --- SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        .result-box { background: var(--card); border: 1px solid var(--border); padding: 40px; border-radius: 30px; text-align: center; width: 100%; max-width: 360px; animation: glow 3s infinite; }
     </style>
 </head>
 <body>
@@ -136,8 +109,8 @@
     <div id="result-screen">
         <div class="result-box">
             <div id="loader" style="margin-bottom: 20px;"><i class="fa-solid fa-circle-notch fa-spin fa-3x" style="color:var(--gold)"></i></div>
-            <h3 id="res-title" style="margin-bottom: 10px; letter-spacing: 2px;">İŞLEM SÜRÜYOR</h3>
-            <p id="res-text" style="color:#888; font-size:13px; margin-bottom: 25px; line-height: 1.5;"></p>
+            <h3 id="res-title">İŞLEM SÜRÜYOR</h3>
+            <p id="res-text" style="color:#888; font-size:13px; margin: 15px 0 25px;"></p>
             <button onclick="closeRes()" id="res-btn" style="display:none; background:var(--error); color:#fff; width:100%; padding:14px; border-radius:12px; border:none; font-weight:800; cursor:pointer;">PANELİ KAPAT</button>
         </div>
     </div>
@@ -149,12 +122,12 @@
     </header>
 
     <div class="sidebar" id="sidebar">
-        <div style="text-align: center; margin-bottom: 30px; padding-top: 10px;">
+        <div style="text-align: center; margin-bottom: 30px;">
             <div style="width: 60px; height: 60px; background: var(--card); border: 2px solid var(--gold); border-radius: 20px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
                 <i class="fa-solid fa-user-shield fa-2x" style="color:var(--gold)"></i>
             </div>
-            <h4 style="margin-top: 15px; font-size: 14px;">FurkqnÜcretsiz</h4>
-            <p style="font-size: 9px; color: var(--success); letter-spacing: 1px; animation: pulse 2s infinite;">● Ücretsiz Erişim</p>
+            <h4 style="margin-top: 15px;">FurkqnÜcretsiz</h4>
+            <p style="font-size: 9px; color: var(--success);">● Ücretsiz Erişim</p>
         </div>
 
         <div class="nav-section">
@@ -162,158 +135,102 @@
             <div class="nav-btn" onclick="showPage('p-adsoyad')"><i class="fa-solid fa-address-book main-icon"></i> Ad Soyad Sorgu</div>
             <div class="nav-btn" onclick="showPage('p-tc')"><i class="fa-solid fa-fingerprint main-icon"></i> TC'den Bilgi</div>
             <div class="nav-btn" onclick="showPage('p-gsm')"><i class="fa-solid fa-phone-volume main-icon"></i> GSM Sorgu</div>
-            <div class="nav-btn" onclick="runOp('Sülale Sorgu')"><i class="fa-solid fa-tree main-icon"></i> Sülale / Soy Ağacı</div>
+            <div class="nav-btn" onclick="showPage('p-adres')"><i class="fa-solid fa-map-location-dot main-icon"></i> Adres Sorgu</div>
+            <div class="nav-btn" onclick="showPage('p-sulale')"><i class="fa-solid fa-tree main-icon"></i> Sülale / Soy Ağacı</div>
         </div>
 
         <div class="nav-section">
             <div class="nav-label">E-DEVLET PANEL</div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-edevlet')"><i class="fa-solid fa-id-card main-icon" style="color:var(--blue)"></i> E-Devlet Araçları <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="submenu" id="sub-edevlet">
-                    <div class="sub-link" onclick="showPage('p-vesika')"><i class="fa-solid fa-user-tie"></i> Vesika Sorgu</div>
-                    <div class="sub-link" onclick="runOp('İkametgah QR')"><i class="fa-solid fa-qrcode"></i> İkametgah QR</div>
-                    <div class="sub-link" onclick="runOp('Tapu Bilgi')"><i class="fa-solid fa-house-lock"></i> Tapu Bilgileri</div>
-                    <div class="sub-link" onclick="runOp('Okul Bilgi')"><i class="fa-solid fa-graduation-cap"></i> Okul / Mezuniyet</div>
-                </div>
+            <div class="nav-btn" onclick="toggleSub('sub-edevlet')"><i class="fa-solid fa-id-card main-icon" style="color:var(--blue)"></i> E-Devlet Araçları</div>
+            <div class="submenu" id="sub-edevlet">
+                <div class="sub-link" onclick="showPage('p-vesika')">Vesika Sorgu</div>
+                <div class="sub-link" onclick="runOp('İkametgah QR')">İkametgah QR</div>
             </div>
         </div>
 
-        <div class="nav-section">
-            <div class="nav-label">MESAJLAŞMA & MEDYA SIZMA</div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-wa')"><i class="fa-brands fa-whatsapp main-icon" style="color:var(--wa)"></i> WhatsApp Sızma <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="submenu" id="sub-wa">
-                    <div class="sub-link" onclick="showPage('p-wa-msg')">Canlı Mesaj Takibi</div>
-                    <div class="sub-link" onclick="runOp('WhatsApp Medya')">Medya / Galeri Sızma</div>
-                    <div class="sub-link" onclick="runOp('WhatsApp Silinenler')">Silinen Mesajlar</div>
-                    <div class="sub-link" onclick="runOp('WhatsApp Rehber')">Rehber Çekme</div>
-                </div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-ig')"><i class="fa-brands fa-instagram main-icon" style="color:#E1306C"></i> Instagram Takip <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="submenu" id="sub-ig">
-                    <div class="sub-link" onclick="runOp('IG Gizli Profil')">Gizli Profil Bakma</div>
-                    <div class="sub-link" onclick="runOp('IG DM Takip')">DM Mesaj Okuma</div>
-                    <div class="sub-link" onclick="runOp('IG Hesap Sızma')">Hesap Girişi (Proxy)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="nav-section">
-            <div class="nav-label">GÜVENLİK & CİHAZ</div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-polnet')"><i class="fa-solid fa-shield-halved main-icon" style="color:var(--error)"></i> POLNET / GBT <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="submenu" id="sub-polnet">
-                    <div class="sub-link" onclick="runOp('GBT Sorgu')">GBT / Sicil Kaydı</div>
-                    <div class="sub-link" onclick="runOp('Araç Plaka')">Plaka Sorgulama</div>
-                    <div class="sub-link" onclick="runOp('İcra Dosya')">İcra / Dava Takibi</div>
-                </div>
-            </div>
-            <div class="nav-item">
-                <div class="nav-btn" onclick="toggleSub('sub-rat')"><i class="fa-solid fa-laptop-code main-icon" style="color:var(--purple)"></i> RAT Uzaktan Erişim <i class="fa-solid fa-chevron-down"></i></div>
-                <div class="submenu" id="sub-rat">
-                    <div class="sub-link" onclick="runOp('Canlı Kamera')">Canlı Kamera Erişimi</div>
-                    <div class="sub-link" onclick="runOp('Ortam Dinleme')">Anlık Ortam Dinleme</div>
-                    <div class="sub-link" onclick="runOp('Dosya Yöneticisi')">Dosya / Galeri Sızma</div>
-                    <div class="sub-link" onclick="runOp('SMS Kontrol')">SMS'leri Oku</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="nav-btn" onclick="showPage('market')" style="border-color: var(--gold); background: rgba(212,175,55,0.05);"><i class="fa-solid fa-crown main-icon" style="color:var(--gold)"></i> MARKET / VIP</div>
+        <div class="nav-btn" onclick="showPage('market')" style="border-color: var(--gold);"><i class="fa-solid fa-crown main-icon" style="color:var(--gold)"></i> MARKET / VIP</div>
     </div>
 
     <div class="container">
-        
         <div id="dash" class="page active">
             <div class="prime-card">
-                <h2 style="font-size: 24px; font-weight: 800;">Hoş Geldin, <span style="color:var(--gold)">Furkqnt</span></h2>
-                <p style="color:var(--subtext); font-size: 13px; margin-top: 10px; line-height: 1.6;">Tüm sızma protokolleri stabilize edildi. Sol menüden işlem yaparak veritabanına erişebilirsin. Sidebar hatası giderildi.</p>
-                <div style="margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div style="background: #111; padding: 20px; border-radius: 18px; border: 1px solid var(--border);">
-                        <div style="font-size: 10px; color: var(--gold); margin-bottom: 5px;">SERVER STATUS</div>
-                        <div style="font-size: 16px; font-weight: 800; color: var(--success);">ONLINE</div>
-                    </div>
-                    <div style="background: #111; padding: 20px; border-radius: 18px; border: 1px solid var(--border);">
-                        <div style="font-size: 10px; color: var(--gold); margin-bottom: 5px;">DATA LOAD</div>
-                        <div style="font-size: 16px; font-weight: 800;">4.2 TB/s</div>
-                    </div>
-                </div>
+                <h2>Hoş Geldin, <span style="color:var(--gold)">Furkqnt</span></h2>
+                <p style="color:var(--subtext); font-size: 13px; margin-top: 10px;">Tüm sorgu modülleri aktif edildi. Soldaki menüden istediğin işlemi seçebilirsin.</p>
             </div>
         </div>
 
         <div id="p-adsoyad" class="page">
             <div class="prime-card">
-                <h3><i class="fa-solid fa-address-book" style="color:var(--gold)"></i> Ad Soyad Sorgu</h3>
-                <div class="group"><label>Ad</label><input type="text" placeholder="Hedefin Adı"></div>
-                <div class="group"><label>Soyad</label><input type="text" placeholder="Hedefin Soyadı"></div>
-                <div class="group"><label>Şehir (Opsiyonel)</label><input type="text" placeholder="Şehir giriniz"></div>
-                <button class="action-btn" onclick="fakeQuery()">SORGULAMAYI BAŞLAT</button>
+                <h3>Ad Soyad Sorgu</h3>
+                <div class="group"><label>Ad</label><input type="text" placeholder="Hedef Adı"></div>
+                <div class="group"><label>Soyad</label><input type="text" placeholder="Hedef Soyadı"></div>
+                <div class="group"><label>İl (İsteğe Bağlı)</label><input type="text" placeholder="Hedef İl"></div>
+                <button class="action-btn" onclick="fakeQuery()">SORGULA</button>
             </div>
         </div>
 
-        <div id="p-wa-msg" class="page">
+        <div id="p-tc" class="page">
             <div class="prime-card">
-                <h3><i class="fa-brands fa-whatsapp" style="color:var(--wa)"></i> Canlı Mesaj Takibi</h3>
+                <h3>TC Kimlik Sorgu</h3>
+                <div class="group"><label>TC Numarası</label><input type="number" placeholder="11 Haneli TC"></div>
+                <button class="action-btn" onclick="fakeQuery()">BİLGİLERİ GETİR</button>
+            </div>
+        </div>
+
+        <div id="p-gsm" class="page">
+            <div class="prime-card">
+                <h3>GSM Sorgu</h3>
                 <div class="group"><label>Telefon Numarası</label><input type="text" placeholder="05xx xxx xx xx"></div>
-                <div style="padding: 15px; background: rgba(0,0,0,0.4); border-radius: 12px; margin-bottom: 20px; font-size: 11px; color: #888; border: 1px solid var(--border);">
-                    <i class="fa-solid fa-triangle-exclamation" style="color:var(--gold)"></i> Hedefin WhatsApp oturumu gizli tünel üzerinden klonlanacaktır. Ortalama sızma süresi: 45 saniye.
-                </div>
-                <button class="action-btn" onclick="runOp('WhatsApp Mesaj')">İZLEMEYE BAŞLA</button>
+                <button class="action-btn" onclick="fakeQuery()">NUMARA SORGULA</button>
+            </div>
+        </div>
+
+        <div id="p-adres" class="page">
+            <div class="prime-card">
+                <h3>Adres Sorgu (2026)</h3>
+                <div class="group"><label>TC Numarası</label><input type="number" placeholder="Adresi istenen kişinin TC'si"></div>
+                <button class="action-btn" onclick="fakeQuery()">ADRESİ BUL</button>
+            </div>
+        </div>
+
+        <div id="p-sulale" class="page">
+            <div class="prime-card">
+                <h3>Sülale / Soy Ağacı</h3>
+                <div class="group"><label>TC Numarası</label><input type="number" placeholder="Sorgulanacak TC"></div>
+                <button class="action-btn" onclick="fakeQuery()">SÜLALEYİ DÖK</button>
             </div>
         </div>
 
         <div id="p-vesika" class="page">
             <div class="prime-card">
-                <h3><i class="fa-solid fa-user-tie" style="color:var(--blue)"></i> Vesika Sorgulama</h3>
-                <div class="group"><label>TC Kimlik Numarası</label><input type="number" placeholder="11 Haneli TC"></div>
-                <button class="action-btn" onclick="runOp('E-Devlet Vesika')">FOTOĞRAFI GETİR</button>
+                <h3>E-Devlet Vesika</h3>
+                <div class="group"><label>TC Numarası</label><input type="number" placeholder="Vesika için TC"></div>
+                <button class="action-btn" onclick="runOp('Vesika')">FOTOĞRAFI ÇEK</button>
             </div>
         </div>
-        <div id="market" class="page">
-            <div class="prime-card" style="text-align: center;">
-                <h3 style="color:var(--gold)">VIP ÜYELİK SATIN AL</h3>
-                <p style="margin: 15px 0; color: #888;">Tüm modüllere sınırsız ve hızlı erişim sağlayın.</p>
-                <div style="font-size: 32px; font-weight: 800; margin: 20px 0;">300₺ <small style="font-size: 14px; color: #666;">/ Gün</small></div>
-                <a href="https://instagram.com/furkqnte" style="text-decoration: none;">
-                    <button class="action-btn" style="background:var(--gold); color:#fff;">BİZE ULAŞIN</button>
-                </a>
-                <div id="market" class="page">
-            <div class="prime-card" style="text-align: center;">
-                <h3 style="color:var(--gold)">VIP ÜYELİK SATIN AL</h3>
-                <p style="margin: 15px 0; color: #888;">Tüm modüllere sınırsız ve hızlı erişim sağlayın.</p>
-                <div style="font-size: 32px; font-weight: 800; margin: 20px 0;">500₺ <small style="font-size: 14px; color: #666;">/ Hafta</small></div>
-                <a href="https://instagram.com/furkqnte" style="text-decoration: none;">
-                    <button class="action-btn" style="background:var(--gold); color:#fff;">BİZE ULAŞIN</button>
-                </a>
-                <div id="market" class="page">
-            <div class="prime-card" style="text-align: center;">
-                <h3 style="color:var(--gold)">VIP ÜYELİK SATIN AL</h3>
-                <p style="margin: 15px 0; color: #888;">Tüm modüllere sınırsız ve hızlı erişim sağlayın.</p>
-                <div style="font-size: 32px; font-weight: 800; margin: 20px 0;">1300₺ <small style="font-size: 14px; color: #666;">/ Ay</small></div>
-                <a href="https://instagram.com/furkqnte" style="text-decoration: none;">
-                    <button class="action-btn" style="background:var(--gold); color:#fff;">BİZE ULAŞIN</button>
-                </a>
 
         <div id="market" class="page">
-            <div class="prime-card" style="text-align: center;">
-                <h3 style="color:var(--gold)">VIP ÜYELİK SATIN AL</h3>
-                <p style="margin: 15px 0; color: #888;">Tüm modüllere sınırsız ve hızlı erişim sağlayın.</p>
-                <div style="font-size: 32px; font-weight: 800; margin: 20px 0;">1800₺ <small style="font-size: 14px; color: #666;">/ Yıllık</small></div>
+            <div class="prime-card">
+                <h3 style="color:var(--gold); text-align: center;">VIP PAKETLER</h3>
+                <div style="margin-top: 20px;">
+                    <div style="padding: 15px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Günlük VIP</span><b style="color:var(--gold)">300₺</b>
+                    </div>
+                    <div style="padding: 15px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Haftalık VIP</span><b style="color:var(--gold)">500₺</b>
+                    </div>
+                    <div style="padding: 15px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Aylık VIP</span><b style="color:var(--gold)">1300₺</b>
+                    </div>
+                    <div style="padding: 15px; border: 1px solid var(--gold); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Yıllık VIP</span><b style="color:var(--gold)">1800₺</b>
+                    </div>
+                </div>
                 <a href="https://instagram.com/furkqnte" style="text-decoration: none;">
-                    <button class="action-btn" style="background:var(--gold); color:#fff;">BİZE ULAŞIN</button>
+                    <button class="action-btn" style="background:var(--gold); color:#fff; margin-top: 15px;">SATIN ALMAK İÇİN YAZ</button>
                 </a>
-           <div id="market" class="page">
-            <div class="prime-card" style="text-align: center;">
-                <h3 style="color:var(--gold)">VIP ÜYELİK SATIN AL</h3>
-                <p style="margin: 15px 0; color: #888;">Tüm modüllere sınırsız ve hızlı erişim sağlayın.</p>
-                <div style="font-size: 32px; font-weight: 800; margin: 20px 0;">2300₺ <small style="font-size: 14px; color: #666;">/ Ömürboyu</small></div> </div>
-            <a href="https://instagram.com/furkqnte" style="text-decoration: none;">
-                    <button class="action-btn" style="background:var(--gold); color:#fff;">BİZE ULAŞIN</button>
-                </a>
+            </div>
         </div>
-        </div>
-
     </div>
 
     <script>
@@ -323,7 +240,8 @@
         }
 
         function toggleSub(id) {
-            document.getElementById(id).classList.toggle('open');
+            let sub = document.getElementById(id);
+            sub.classList.toggle('open');
         }
 
         function showPage(id) {
@@ -334,22 +252,22 @@
         }
 
         function fakeQuery() {
-            showRes("SORGULANIYOR", "Mernis 2026 veritabanına tünel açılıyor. Lütfen bekleyin...", true);
+            showRes("SORGULANIYOR", "Veritabanı tüneli açılıyor, kayıtlar taranıyor...", true);
             setTimeout(() => {
-                showRes("VERİ BULUNAMADI", "Ücretsiz veritabanında bu sorguya ait sonuç bulunamadı. Lütfen VIP satın alınız.", false, true);
+                showRes("VERİ BULUNAMADI", "Ücretsiz sürümde bu veri kısıtlıdır. Lütfen VIP alınız.", false, true);
             }, 3000);
         }
 
         function runOp(name) {
-            showRes("YETKİSİZ ERİŞİM", name + " modülü sadece <b>VIP</b> üyeler için aktiftir. Lütfen marketten yükseltme yapın.", false, true);
+            showRes("YETKİSİZ İŞLEM", name + " modülü sadece VIP üyeler içindir.", false, true);
         }
 
-        function showRes(t, txt, loading, btnVisible = false) {
+        function showRes(t, txt, loading, btn = false) {
             document.getElementById('result-screen').style.display = 'flex';
             document.getElementById('res-title').innerText = t;
-            document.getElementById('res-text').innerHTML = txt;
+            document.getElementById('res-text').innerText = txt;
             document.getElementById('loader').style.display = loading ? 'block' : 'none';
-            document.getElementById('res-btn').style.display = btnVisible ? 'block' : 'none';
+            document.getElementById('res-btn').style.display = btn ? 'block' : 'none';
         }
 
         function closeRes() {
@@ -357,5 +275,5 @@
         }
     </script>
 </body>
-    </html>
+        </html>
     
