@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FURKQNT x KANISTAY | PREMIUM</title>
+    <title>FURKQNT x KANISTAY | PREMIUM PANEL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
@@ -18,73 +18,85 @@
             --error: #ff3b30;
             --success: #00ff88;
             --blue: #007AFF;
+            --purple: #af52de;
+            --pink: #E1306C;
+            --green: #25d366;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* --- HEADER --- */
         .header { 
-            height: 70px; background: rgba(5, 5, 5, 0.95); display: flex; 
+            height: 65px; background: rgba(5, 5, 5, 0.98); display: flex; 
             align-items: center; justify-content: space-between; padding: 0 20px; 
             border-bottom: 1px solid var(--border); position: fixed; top: 0; width: 100%; z-index: 2000;
-            backdrop-filter: blur(15px);
         }
-        .brand { font-weight: 800; font-size: 14px; letter-spacing: 2px; }
-        .brand span { color: var(--gold); }
-        .menu-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+        .brand { font-weight: 800; font-size: 13px; letter-spacing: 1px; color: #fff; }
+        .menu-btn { background: var(--card); border: 1px solid var(--border); color: #fff; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; }
 
         /* --- SIDEBAR --- */
         .sidebar { 
-            position: fixed; top: 0; left: -100%; width: 300px; height: 100vh; 
-            background: var(--bg); z-index: 3000; transition: 0.4s cubic-bezier(0.1, 0.7, 1.0, 0.1); 
+            position: fixed; top: 0; left: -100%; width: 310px; height: 100vh; 
+            background: var(--bg); z-index: 3000; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
             padding: 20px; border-right: 1px solid var(--border); overflow-y: auto;
         }
         .sidebar.active { left: 0; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 2500; backdrop-filter: blur(5px); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; z-index: 2500; backdrop-filter: blur(8px); }
         .overlay.active { display: block; }
 
-        .nav-label { font-size: 10px; color: var(--gold); font-weight: 800; letter-spacing: 1.5px; margin: 20px 0 10px 5px; text-transform: uppercase; }
+        /* --- SIDEBAR SECTIONS --- */
+        .nav-label { font-size: 10px; color: var(--gold); font-weight: 800; letter-spacing: 1.5px; margin: 20px 0 10px 10px; text-transform: uppercase; }
+        
         .nav-btn { 
-            display: flex; align-items: center; padding: 14px; color: #ccc; font-size: 14px; 
-            border-radius: 12px; cursor: pointer; margin-bottom: 5px; background: rgba(255,255,255,0.03);
-            border: 1px solid transparent; transition: 0.3s;
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 14px 15px; color: #bbb; font-size: 14px; font-weight: 600; 
+            border-radius: 12px; cursor: pointer; margin-bottom: 5px;
+            background: rgba(255,255,255,0.02); border: 1px solid transparent; transition: 0.3s;
         }
-        .nav-btn:hover { background: #111; border-color: var(--border); color: #fff; }
-        .nav-btn i { margin-right: 15px; width: 20px; text-align: center; font-size: 16px; }
+        .nav-btn:hover { background: #111; color: #fff; border-color: var(--border); }
+        .nav-btn i.main-icon { margin-right: 12px; width: 22px; text-align: center; }
+
+        .submenu { display: none; padding-left: 15px; margin-top: 5px; border-left: 1px solid var(--border); margin-left: 25px; }
+        .submenu.open { display: block; animation: fadeInUp 0.3s ease; }
+        .sub-link { padding: 10px 12px; color: #777; font-size: 13px; cursor: pointer; display: block; border-radius: 8px; transition: 0.2s; }
+        .sub-link:hover { color: var(--gold); background: rgba(212,175,55,0.05); }
 
         /* --- CONTENT --- */
-        .container { padding: 90px 15px 40px; max-width: 600px; margin: 0 auto; }
+        .container { padding: 85px 15px 40px; max-width: 600px; margin: 0 auto; }
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; }
 
-        /* --- DASHBOARD CARDS --- */
-        .premium-banner { 
-            background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 20px; 
-            margin-bottom: 20px; text-align: center; position: relative;
+        /* --- DASHBOARD STYLES (FROM SCREENSHOT) --- */
+        .premium-panel-header { 
+            background: #0d0d0d; border: 1px solid var(--border); border-radius: 20px; 
+            padding: 25px; text-align: center; margin-bottom: 20px;
         }
-        .status-badge { color: var(--success); font-size: 11px; font-weight: 800; letter-spacing: 1px; margin-top: 10px; display: block; }
-        
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .stat-box { background: #0d0d0d; border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; }
-        .stat-val { display: block; font-size: 18px; font-weight: 800; color: var(--gold); }
-        .stat-lab { font-size: 10px; color: var(--subtext); text-transform: uppercase; margin-top: 5px; }
+        .premium-panel-header h2 { font-size: 18px; letter-spacing: 1px; margin-bottom: 5px; }
+        .status-text { color: var(--success); font-size: 10px; font-weight: 800; letter-spacing: 1px; }
 
-        .alert-box { background: rgba(255, 59, 48, 0.1); border: 1px solid rgba(255, 59, 48, 0.2); padding: 12px; border-radius: 10px; font-size: 11px; color: #ff9f9f; margin-top: 15px; }
+        .stat-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: #0d0d0d; border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; }
+        .stat-card span:first-child { display: block; color: var(--subtext); font-size: 10px; margin-bottom: 5px; }
+        .stat-card span:last-child { font-weight: 800; color: var(--gold); }
+
+        .error-alert { background: rgba(255,59,48,0.1); border: 1px solid rgba(255,59,48,0.2); border-radius: 12px; padding: 12px; font-size: 10px; color: #ff9f9f; display: flex; align-items: center; }
+        .error-alert i { margin-right: 8px; }
+
+        .terminal-box { background: #000; border: 1px solid var(--border); padding: 15px; border-radius: 15px; font-family: monospace; font-size: 11px; color: #555; margin-top: 20px; }
 
         /* --- FORMS --- */
-        .prime-card { background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 20px; }
+        .prime-card { background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 20px; }
         .group { margin-bottom: 15px; }
-        .group label { font-size: 11px; color: var(--gold); display: block; margin-bottom: 8px; font-weight: 700; }
-        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 15px; border-radius: 12px; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--gold); }
-        .action-btn { width: 100%; background: #fff; color: #000; padding: 16px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .action-btn:hover { background: var(--gold); color: #fff; }
+        .group label { font-size: 10px; color: var(--gold); font-weight: 800; display: block; margin-bottom: 8px; }
+        input { width: 100%; background: #000; border: 1px solid var(--border); color: #fff; padding: 14px; border-radius: 10px; outline: none; }
+        .action-btn { width: 100%; background: #fff; color: #000; padding: 16px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; margin-top: 10px; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- MODAL --- */
-        #result-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(10px); }
-        .res-box { background: var(--card); border: 1px solid var(--border); padding: 35px; border-radius: 25px; text-align: center; width: 100%; max-width: 350px; }
+        #result-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px); }
+        .res-box { background: var(--card); border: 1px solid var(--border); padding: 30px; border-radius: 20px; text-align: center; width: 100%; max-width: 320px; }
     </style>
 </head>
 <body>
@@ -93,10 +105,10 @@
 
     <div id="result-screen">
         <div class="res-box">
-            <div id="loader"><i class="fa-solid fa-circle-notch fa-spin fa-3x" style="color:var(--gold)"></i></div>
-            <h3 id="res-title" style="margin: 20px 0 10px;">İŞLEM SÜRÜYOR</h3>
-            <p id="res-text" style="color:var(--subtext); font-size:13px; margin-bottom:20px;"></p>
-            <button onclick="closeRes()" id="res-btn" style="display:none; width:100%; padding:12px; background:var(--error); color:#fff; border:none; border-radius:10px; font-weight:800;">KAPAT</button>
+            <i class="fa-solid fa-circle-notch fa-spin fa-3x" id="loader" style="color:var(--gold)"></i>
+            <h3 id="res-title" style="margin-top: 15px;">İŞLEM SÜRÜYOR</h3>
+            <p id="res-text" style="color:var(--subtext); font-size:12px; margin: 10px 0 20px;"></p>
+            <button onclick="closeRes()" id="res-btn" style="display:none; width:100%; padding:12px; background:var(--error); color:#fff; border:none; border-radius:8px; font-weight:800;">PANELİ KAPAT</button>
         </div>
     </div>
 
@@ -107,52 +119,112 @@
     </header>
 
     <div class="sidebar" id="sidebar">
-        <div style="text-align: center; margin-bottom: 25px;">
-            <h3 style="font-size: 16px;">FurkqntÜcretsiz</h3>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="font-size: 18px;">FurkqnÜcretsiz</h2>
             <span style="color:var(--success); font-size: 10px;">● Ücretsiz Erişim</span>
         </div>
 
         <div class="nav-section">
             <div class="nav-label">MERNİS 2026 DATABASE</div>
-            <div class="nav-btn" onclick="showPage('p-adsoyad')"><i class="fa-solid fa-user"></i> Ad Soyad Sorgu</div>
-            <div class="nav-btn" onclick="showPage('p-tc')"><i class="fa-solid fa-fingerprint"></i> TC'den Bilgi</div>
-            <div class="nav-btn" onclick="showPage('p-gsm')"><i class="fa-solid fa-phone"></i> GSM Sorgu</div>
-            <div class="nav-btn" onclick="showPage('p-adres')"><i class="fa-solid fa-location-dot"></i> Adres Sorgu</div>
-            <div class="nav-btn" onclick="showPage('p-sulale')"><i class="fa-solid fa-tree"></i> Sülale / Soy Ağacı</div>
+            <div class="nav-btn" onclick="showPage('p-adsoyad')"><i class="fa-solid fa-address-book main-icon"></i> Ad Soyad Sorgu</div>
+            <div class="nav-btn" onclick="showPage('p-tc')"><i class="fa-solid fa-fingerprint main-icon"></i> TC'den Bilgi</div>
+            <div class="nav-btn" onclick="showPage('p-gsm')"><i class="fa-solid fa-phone main-icon"></i> GSM Sorgu</div>
+            <div class="nav-btn" onclick="showPage('p-sulale')"><i class="fa-solid fa-tree main-icon"></i> Sülale / Soy Ağacı</div>
         </div>
 
         <div class="nav-section">
-            <div class="nav-label">DİĞER PANEL</div>
-            <div class="nav-btn" onclick="showPage('p-vesika')"><i class="fa-solid fa-image"></i> Vesika Sorgu</div>
-            <div class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-crown" style="color:var(--gold)"></i> Market / VIP</div>
+            <div class="nav-label">SOSYAL MEDYA</div>
+            <div class="nav-btn" onclick="toggleSub('sub-ig')"><i class="fa-brands fa-instagram main-icon" style="color:var(--pink)"></i> Instagram Çözümleri <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="sub-ig">
+                <div class="sub-link" onclick="runOp('Gizli Profil')">Gizli Profil Görüntüle</div>
+                <div class="sub-link" onclick="runOp('Instagram Sızma')">Instagram Sızma</div>
+                <div class="sub-link" onclick="runOp('DM Takip')">DM Mesaj Takibi</div>
+                <div class="sub-link" onclick="runOp('Gizli Hikaye')">Gizli Hikaye İzlenme</div>
+                <div class="sub-link" onclick="runOp('Takipçi Paneli')">Şifresiz Takipçi Paneli</div>
+            </div>
         </div>
+
+        <div class="nav-section">
+            <div class="nav-label">SORGULAR & DEVLET</div>
+            <div class="nav-btn" onclick="toggleSub('sub-edevlet')"><i class="fa-solid fa-id-card main-icon" style="color:var(--blue)"></i> E-Devlet İşlemleri <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="sub-edevlet">
+                <div class="sub-link" onclick="runOp('E-İmza')">E-İmza Sorgu</div>
+                <div class="sub-link" onclick="runOp('E-Devlet Giriş')">E-Devlet Giriş</div>
+                <div class="sub-link" onclick="runOp('Kişiye Ait İmza')">Kişiye Ait İmza</div>
+                <div class="sub-link" onclick="runOp('E-Devlet Vesika')">E-Devlet Vesika</div>
+                <div class="sub-link" onclick="runOp('Pasaport')">Pasaport Bilgileri</div>
+                <div class="sub-link" onclick="runOp('İkametgah')">QR Kodlu İkametgah</div>
+                <div class="sub-link" onclick="runOp('Adına Kayıtlı GSM')">Adına Kayıtlı GSM</div>
+                <div class="sub-link" onclick="runOp('Enabiz')">Enabiz Takip</div>
+            </div>
+            
+            <div class="nav-btn" onclick="toggleSub('sub-polnet')"><i class="fa-solid fa-shield-halved main-icon" style="color:var(--error)"></i> POLNET <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="sub-polnet">
+                <div class="sub-link" onclick="runOp('Scil Sorgu')">Scil Sorgu</div>
+                <div class="sub-link" onclick="runOp('Kom Arşiv')">Kom Arşiv Sorgu</div>
+                <div class="sub-link" onclick="runOp('Tem Arşiv')">Tem Arşiv Sorgu</div>
+                <div class="sub-link" onclick="runOp('Gözaltı')">Gözaltı Sorgu</div>
+                <div class="sub-link" onclick="runOp('Olaylar')">Kişi Karıştığı Olaylar</div>
+                <div class="sub-link" onclick="runOp('Adli İşlemler')">Şahıs Adli İşlemleri</div>
+                <div class="sub-link" onclick="runOp('Adli Evrak')">Adli Evrak Sorgu</div>
+                <div class="sub-link" onclick="runOp('Dava Sorgu')">Dava Sorgu</div>
+                <div class="sub-link" onclick="runOp('İcra Sorgu')">İcra Sorgu</div>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-label">CİHAZ KONTROL</div>
+            <div class="nav-btn" onclick="toggleSub('sub-tel')"><i class="fa-solid fa-phone main-icon" style="color:var(--green)"></i> Telefon İşlemleri <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="sub-tel">
+                <div class="sub-link" onclick="runOp('Telefon Sorgu')">Telefon Sorgu</div>
+                <div class="sub-link" onclick="runOp('IMEI Sorgu')">IMEI Sorgu</div>
+                <div class="sub-link" onclick="runOp('Konum Sorgu')">Anlık Konum Sorgu</div>
+                <div class="sub-link" onclick="runOp('Fatura Detay')">Fatura Detay Dökümü</div>
+                <div class="sub-link" onclick="runOp('Arama Kayıtları')">Arama Kayıtları</div>
+                <div class="sub-link" onclick="runOp('İnternet Trafiği')">İnternet Trafiği</div>
+                <div class="sub-link" onclick="runOp('Gizli Numara')">Gizli Numara Sorgu</div>
+            </div>
+
+            <div class="nav-btn" onclick="toggleSub('sub-rat')"><i class="fa-solid fa-laptop-code main-icon" style="color:var(--purple)"></i> Cihaz Kontrol (RAT) <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="sub-rat">
+                <div class="sub-link" onclick="runOp('Mikrofon')">Mikrofon Dinleme</div>
+                <div class="sub-link" onclick="runOp('Dosya Yöneticisi')">Dosya Yöneticisi Erişimi</div>
+            </div>
+
+            <div class="nav-btn" onclick="toggleSub('sub-media')"><i class="fa-solid fa-images main-icon" style="color:var(--gold)"></i> Medya & Galeri <i class="fa-solid fa-chevron-down"></i></div>
+            <div class="submenu" id="sub-media">
+                <div class="sub-link" onclick="runOp('Galeri Sızma')">Galeri Sızma (Android)</div>
+                <div class="sub-link" onclick="runOp('Fotoğraf Kurtar')">Silinen Fotoğrafları Kurtar</div>
+            </div>
+        </div>
+
+        <div class="nav-btn" onclick="showPage('market')" style="margin-top: 20px;"><i class="fa-solid fa-store main-icon"></i> Market / VIP Üyelik</div>
     </div>
 
     <div class="container">
-        
         <div id="dash" class="page active">
-            <div class="premium-banner">
-                <h2 style="font-size: 20px;">Furkqnt Hoş Geldin.</h2>
-                <p style="font-size: 12px; color: var(--subtext); margin-top: 5px;">Panel aktif. 256-bit uçtan uca şifreleme devrede.</p>
-                <span class="status-badge">STATUS: ACTIVE / ENCRYPTED</span>
+            <div class="premium-panel-header">
+                <h2>PREMIUM PANEL</h2>
+                <span class="status-text">STATUS: ACTIVE / ENCRYPTED</span>
             </div>
 
-            <div class="stat-grid">
-                <div class="stat-box">
-                    <span class="stat-val">4,829</span>
-                    <span class="stat-lab">Aktif Bağlantılar</span>
+            <div class="stat-card-row">
+                <div class="stat-card">
+                    <span>Aktif Bağlantılar</span>
+                    <span>4,829</span>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-val">%14.2</span>
-                    <span class="stat-lab">Sunucu Yükü</span>
+                <div class="stat-card">
+                    <span>Sunucu Yükü</span>
+                    <span style="color:var(--success)">%14.2</span>
                 </div>
             </div>
 
-            <div class="alert-box">
-                <b>DİKKAT:</b> Mernis 2026 tüneli kısıtlıdır. Kesin sonuçlar için Market üzerinden Proxy desteği alınız.
+            <div class="error-alert">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>DİKKAT: Mernis 2026 tüneli kısıtlıdır. Kesin sonuçlar için Market üzerinden Proxy desteği alınız.</span>
             </div>
 
-            <div class="prime-card" style="margin-top:20px; font-size:12px; color:#555;">
+            <div class="terminal-box">
                 <p>> [SEC] Yeni SSL sertifikası doğrulandı.</p>
                 <p>> [RAT] Android 14 payload güncellendi.</p>
                 <p>> [DB] MERNİS 2026 veri seti entegre edildi.</p>
@@ -161,66 +233,25 @@
 
         <div id="p-adsoyad" class="page">
             <div class="prime-card">
-                <h3><i class="fa-solid fa-user" style="color:var(--gold)"></i> Ad Soyad Sorgu</h3>
-                <div class="group" style="margin-top:20px;"><label>AD</label><input type="text" placeholder="Hedef Adı"></div>
-                <div class="group"><label>SOYAD</label><input type="text" placeholder="Hedef Soyadı"></div>
-                <div class="group"><label>İL</label><input type="text" placeholder="Şehir (Örn: İstanbul)"></div>
-                <div class="group"><label>İLÇE (OPSİYONEL)</label><input type="text" placeholder="İlçe giriniz"></div>
-                <button class="action-btn" onclick="fakeQuery()">SORGULAMAYI BAŞLAT</button>
-            </div>
-        </div>
-
-        <div id="p-tc" class="page">
-            <div class="prime-card">
-                <h3>TC'den Bilgi Sorgu</h3>
-                <div class="group" style="margin-top:20px;"><label>TC KİMLİK NO</label><input type="number" placeholder="11 Haneli TC"></div>
+                <h3>Ad Soyad Sorgu</h3>
+                <div class="group" style="margin-top:20px;"><label>AD</label><input type="text" placeholder="İsim"></div>
+                <div class="group"><label>SOYAD</label><input type="text" placeholder="Soyisim"></div>
+                <div class="group"><label>İL</label><input type="text" placeholder="Şehir"></div>
                 <button class="action-btn" onclick="fakeQuery()">SORGULA</button>
             </div>
         </div>
 
-        <div id="p-gsm" class="page">
-            <div class="prime-card">
-                <h3>GSM No Sorgu</h3>
-                <div class="group" style="margin-top:20px;"><label>TELEFON NUMARASI</label><input type="text" placeholder="05xx xxx xx xx"></div>
-                <button class="action-btn" onclick="fakeQuery()">NUMARAYI TARA</button>
-            </div>
+        <div id="p-tc" class="page">
+            <div class="prime-card"><h3>TC'den Bilgi</h3><div class="group" style="margin-top:20px;"><label>TC NO</label><input type="number"></div><button class="action-btn" onclick="fakeQuery()">SORGULA</button></div>
         </div>
-
-        <div id="p-adres" class="page">
-            <div class="prime-card">
-                <h3>Adres Sorgu</h3>
-                <div class="group" style="margin-top:20px;"><label>TC KİMLİK NO</label><input type="number" placeholder="Adresi aranacak kişinin TC'si"></div>
-                <button class="action-btn" onclick="fakeQuery()">İKAMETGAH BUL</button>
-            </div>
-        </div>
-
-        <div id="p-sulale" class="page">
-            <div class="prime-card">
-                <h3>Sülale / Soy Ağacı</h3>
-                <div class="group" style="margin-top:20px;"><label>TC KİMLİK NO</label><input type="number" placeholder="Sorgulanacak TC"></div>
-                <button class="action-btn" onclick="fakeQuery()">AĞACI DÖK</button>
-            </div>
-        </div>
-
-        <div id="p-vesika" class="page">
-            <div class="prime-card">
-                <h3>E-Devlet Vesika</h3>
-                <div class="group" style="margin-top:20px;"><label>TC KİMLİK NO</label><input type="number" placeholder="Vesika için TC"></div>
-                <button class="action-btn" onclick="fakeQuery()">FOTOĞRAFI GETİR</button>
-            </div>
-        </div>
-
+        
         <div id="market" class="page">
-            <div class="prime-card" style="text-align: center;">
-                <h3 style="color:var(--gold)">VIP ÜYELİK</h3>
-                <p style="margin: 15px 0; color: #888; font-size:13px;">Tüm sorgulara sınırsız erişim ve Proxy desteği.</p>
-                <div style="font-size: 24px; font-weight: 800; margin: 20px 0;">300₺ <small style="font-size: 12px; color: #666;">/ Günlük</small></div>
-                <a href="https://instagram.com/furkqnte" style="text-decoration: none;">
-                    <button class="action-btn" style="background:var(--gold); color:#fff;">SATIN ALMAK İÇİN YAZ</button>
-                </a>
+            <div class="prime-card" style="text-align:center;">
+                <h3 style="color:var(--gold)">VIP MARKET</h3>
+                <p style="font-size:12px; margin:15px 0;">Proxy ve Sınırsız Veri Erişimi</p>
+                <a href="https://instagram.com/furkqnte" style="text-decoration:none;"><button class="action-btn" style="background:var(--gold); color:#fff;">BİZE ULAŞIN</button></a>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -229,32 +260,40 @@
             document.getElementById('overlay').classList.toggle('active');
         }
 
+        function toggleSub(id) {
+            const sub = document.getElementById(id);
+            sub.classList.toggle('open');
+            // Diğer açık submenüleri kapatmak isterseniz buraya kod eklenebilir.
+        }
+
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(window.innerWidth < 1000 && id !== 'dash') toggleMenu();
+            if(window.innerWidth < 1000) toggleMenu();
             window.scrollTo(0, 0);
         }
 
-        function fakeQuery() {
-            showRes("SORGULANIYOR", "Mernis 2026 veritabanına tünel açılıyor. Lütfen bekleyin...", true);
-            setTimeout(() => {
-                showRes("VERİ BULUNAMADI", "Ücretsiz veritabanında bu sorguya ait sonuç bulunamadı. Lütfen VIP satın alınız.", false, true);
-            }, 3000);
+        function runOp(name) {
+            showRes("YETKİSİZ ERİŞİM", name + " modülü sadece VIP üyeler içindir. Lütfen marketten yükseltme yapın.", false, true);
         }
 
-        function showRes(t, txt, loading, btnVisible = false) {
+        function fakeQuery() {
+            showRes("SORGULANIYOR", "Veritabanı tüneli açılıyor. Lütfen bekleyin...", true);
+            setTimeout(() => {
+                showRes("VERİ BULUNAMADI", "Ücretsiz sürümde bu veri kısıtlıdır. VIP satın alınız.", false, true);
+            }, 2500);
+        }
+
+        function showRes(t, txt, loading, btn = false) {
             document.getElementById('result-screen').style.display = 'flex';
             document.getElementById('res-title').innerText = t;
-            document.getElementById('res-text').innerHTML = txt;
+            document.getElementById('res-text').innerText = txt;
             document.getElementById('loader').style.display = loading ? 'block' : 'none';
-            document.getElementById('res-btn').style.display = btnVisible ? 'block' : 'none';
+            document.getElementById('res-btn').style.display = btn ? 'block' : 'none';
         }
 
-        function closeRes() {
-            document.getElementById('result-screen').style.display = 'none';
-        }
+        function closeRes() { document.getElementById('result-screen').style.display = 'none'; }
     </script>
 </body>
-    </html>
-    
+                    </html>
+                    
